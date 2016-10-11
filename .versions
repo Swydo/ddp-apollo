@@ -1,0 +1,10 @@
+babel-compiler@6.6.4
+babel-runtime@0.1.8
+ecmascript@0.4.3
+ecmascript-runtime@0.2.10
+meteor@1.1.16
+modules@0.6.5
+modules-runtime@0.6.5
+promise@0.6.7
+swydo:ddp-apollo@0.0.2
+underscore@1.0.9
