@@ -1,6 +1,16 @@
 # DDP-Apollo
 DDP network interface for Apollo using a Meteor method
 
+## Installation
+
+```
+meteor add swydo:ddp-apollo
+```
+
+```
+meteor npm install --save graphql-server-core
+```
+
 ## Client setup
 This package gives you a network interface for you Apollo Client.
 
