@@ -1,6 +1,6 @@
 Package.describe({
   name: 'swydo:ddp-apollo',
-  version: '0.0.2',
+  version: '0.0.3',
   summary: 'DDP network interface for Apollo using a Meteor method',
   git: 'https://github.com/swydo/ddp-apollo',
   documentation: 'README.md'
@@ -8,7 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.3.2.4');
-  api.use('ecmascript');
+  api.use(['ecmascript', 'promise']);
   api.mainModule('client.js', 'client');
   api.mainModule('server.js', 'server');
 });
