@@ -35,7 +35,9 @@ The server will add a method that will be used by the DDP network interface.
 import { schema } from './path/to/your/executable/schema';
 import { setup } from 'meteor/swydo:ddp-apollo';
 
-setup(schema);
+const options = {}; // See below for options
+
+setup(schema, options);
 ```
 
 ### Options
