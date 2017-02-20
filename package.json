@@ -1,0 +1,29 @@
+{
+  "name": "ddp-apollo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "DDP integration for the Apollo Client.",
+  "main": "lib/setup.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^3.14.1",
+    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint-import-resolver-meteor": "^0.3.4",
+    "eslint-plugin-import": "^2.2.0"
+  },
+  "scripts": {
+    "eslint": "eslint ./lib",
+    "test": "meteor test-packages ./ --once --driver-package dispatch:mocha-phantomjs",
+    "test-watch": "meteor test-packages ./ --driver-package practicalmeteor:mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swydo/ddp-apollo.git"
+  },
+  "author": "Michiel ter Reehorst",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Swydo/ddp-apollo/issues"
+  },
+  "homepage": "https://github.com/Swydo/ddp-apollo#readme"
+}

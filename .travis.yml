@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - "4"
+
+before_install:
+  - "curl https://install.meteor.com | /bin/sh"
+  - export PATH="$HOME/.meteor:$PATH"
+
+script:
+  - "npm run eslint -s"
