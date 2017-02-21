@@ -5,9 +5,9 @@ import sinon from 'sinon';
 import { makeExecutableSchema } from 'graphql-tools';
 import OpticsAgent from 'optics-agent';
 
-import { setup, createGraphQlMethod } from './setup';
-import { DEFAULT_METHOD } from './common';
-import * as optics from './optics';
+import { setup, createGraphQlMethod } from '../lib/setup';
+import { DEFAULT_METHOD } from '../lib/common';
+import * as optics from '../lib/optics';
 
 OpticsAgent.configureAgent({
   apiKey: process.env.OPTICS_API_KEY || 'foo',

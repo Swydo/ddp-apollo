@@ -23,11 +23,11 @@ Package.onTest(function test(api) {
   api.use(packages);
 
   api.use([
-    'practicalmeteor:mocha',
+    'practicalmeteor:mocha@2.4.5_6',
     'dispatch:phantomjs-tests@=0.0.5',
     'dispatch:mocha-phantomjs',
   ]);
 
-  api.mainModule('client.spec.js', 'client');
-  api.mainModule('server.spec.js', 'server');
+  api.mainModule('specs/client.spec.js', 'client');
+  api.mainModule('specs/server.spec.js', 'server');
 });

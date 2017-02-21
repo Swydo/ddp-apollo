@@ -20,7 +20,7 @@
   },
   "scripts": {
     "doctoc": "doctoc ./README.md",
-    "eslint": "eslint ./lib",
+    "eslint": "eslint ./lib ./specs",
     "test": "meteor test-packages ./ --once --driver-package dispatch:mocha-phantomjs",
     "test-watch": "meteor test-packages ./ --driver-package practicalmeteor:mocha"
   },

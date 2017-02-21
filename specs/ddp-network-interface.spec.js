@@ -1,8 +1,8 @@
 /* eslint-disable prefer-arrow-callback, func-names */
 /* eslint-env mocha */
 import chai from 'chai';
-import { DDPNetworkInterface } from './ddp-network-interface';
-import { DEFAULT_METHOD } from './common';
+import { DDPNetworkInterface } from '../lib/ddp-network-interface';
+import { DEFAULT_METHOD } from '../lib/common';
 
 describe('#DDPNetworkInterface', function () {
   before(function () {
