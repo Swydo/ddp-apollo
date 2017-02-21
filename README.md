@@ -12,6 +12,7 @@ DDP network interface for Apollo using a Meteor method
   - [Options](#options)
 - [Server setup](#server-setup)
   - [Options](#options-1)
+- [Apollo Optics](#apollo-optics)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -56,3 +57,19 @@ setup(schema, options);
 
 ### Options
 - `method`: The name of the method. Default `/graphql`.
+- `disableOptics`: Disable Apollo Optics monitoring. Default `undefined` (auto-detected).
+
+## Apollo Optics
+You can also use [Apollo Optics](http://www.apollodata.com/optics) with ddp-apollo.
+
+Before passing your schema to the setup function you must first instrument it:
+
+```javascript
+import OpticsAgent from 'optics-agent';
+
+OpticsAgent.instrumentSchema(schema);
+```
+
+That's it! Now `ddp-apollo` will take care of the rest. In case you don't want to use optics after instrumenting the schema you can disable it by passing `disableOptics: true` to the server options.
+
+See the [Optics README](https://github.com/apollographql/optics-agent-js/blob/master/README.md) for all the setup details and options.

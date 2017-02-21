@@ -1,3 +1,4 @@
+/* eslint-disable no-var, prefer-arrow-callback */
 var packages = [
   'ecmascript',
   'promise',
@@ -23,7 +24,6 @@ Package.onTest(function test(api) {
 
   api.use([
     'practicalmeteor:mocha',
-    'practicalmeteor:chai',
     'dispatch:phantomjs-tests@=0.0.5',
     'dispatch:mocha-phantomjs',
   ]);

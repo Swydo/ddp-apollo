@@ -6,13 +6,16 @@
   "main": "lib/setup.js",
   "dependencies": {},
   "devDependencies": {
+    "chai": "^3.5.0",
     "doctoc": "^1.2.0",
     "eslint": "^3.14.1",
     "eslint-config-airbnb-base": "^11.0.1",
     "eslint-import-resolver-meteor": "^0.3.4",
     "eslint-plugin-import": "^2.2.0",
     "graphql": "^0.9.1",
-    "graphql-server-core": "^0.6.0"
+    "graphql-server-core": "^0.6.0",
+    "optics-agent": "^1.0.5",
+    "sinon": "^1.17.7"
   },
   "scripts": {
     "doctoc": "doctoc ./README.md",
