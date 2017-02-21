@@ -6,6 +6,7 @@
   "main": "lib/setup.js",
   "dependencies": {},
   "devDependencies": {
+    "doctoc": "^1.2.0",
     "eslint": "^3.14.1",
     "eslint-config-airbnb-base": "^11.0.1",
     "eslint-import-resolver-meteor": "^0.3.4",
@@ -14,6 +15,7 @@
     "graphql-server-core": "^0.6.0"
   },
   "scripts": {
+    "doctoc": "doctoc ./README.md",
     "eslint": "eslint ./lib",
     "test": "meteor test-packages ./ --once --driver-package dispatch:mocha-phantomjs",
     "test-watch": "meteor test-packages ./ --driver-package practicalmeteor:mocha"
