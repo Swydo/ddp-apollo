@@ -5,6 +5,7 @@ node_js:
 before_install:
   - "curl https://install.meteor.com | /bin/sh"
   - export PATH="$HOME/.meteor:$PATH"
+  - meteor --version
 
 script:
   - "npm run eslint -s"
