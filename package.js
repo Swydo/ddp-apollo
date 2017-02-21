@@ -24,6 +24,7 @@ Package.onTest(function test(api) {
   api.use([
     'practicalmeteor:mocha',
     'practicalmeteor:chai',
+    'dispatch:phantomjs-tests@=0.0.5',
     'dispatch:mocha-phantomjs',
   ]);
 
