@@ -9,7 +9,8 @@
         "import/prefer-default-export": "off"
     },
     "globals": {
-        "Meteor": true
+        "Meteor": true,
+        "Package": true
     },
     "settings": {
         "import/resolver": "meteor"
