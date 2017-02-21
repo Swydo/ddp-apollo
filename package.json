@@ -12,7 +12,7 @@
     "eslint-config-airbnb-base": "^11.0.1",
     "eslint-import-resolver-meteor": "^0.3.4",
     "eslint-plugin-import": "^2.2.0",
-    "graphql": "^0.9.1",
+    "graphql": "^0.8.0",
     "graphql-server-core": "^0.6.0",
     "optics-agent": "^1.0.5",
     "sinon": "^1.17.7"
