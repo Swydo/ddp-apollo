@@ -6,7 +6,7 @@ var packages = [
 
 Package.describe({
   name: 'swydo:ddp-apollo',
-  version: '0.1.0',
+  version: '0.1.1',
   summary: 'DDP network interface for Apollo using a Meteor method',
   git: 'https://github.com/swydo/ddp-apollo',
   documentation: 'README.md',

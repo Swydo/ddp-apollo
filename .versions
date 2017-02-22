@@ -29,7 +29,7 @@ htmljs@1.0.11
 http@1.1.5
 id-map@1.0.8
 jquery@1.11.9
-local-test:swydo:ddp-apollo@0.1.0
+local-test:swydo:ddp-apollo@0.1.1
 logging@1.0.14
 meteor@1.1.16
 minifier-js@1.1.13
@@ -54,7 +54,7 @@ retry@1.0.8
 routepolicy@1.0.9
 spacebars@1.0.10
 spacebars-compiler@1.0.12
-swydo:ddp-apollo@0.1.0
+swydo:ddp-apollo@0.1.1
 templating@1.1.8
 templating-tools@1.0.4
 tmeasday:test-reporter-helpers@0.2.1
