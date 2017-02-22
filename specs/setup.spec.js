@@ -6,7 +6,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 import OpticsAgent from 'optics-agent';
 import gql from 'graphql-tag';
 
-import { setup, createGraphQlMethod } from '../lib/setup';
+import { setup, createGraphQlMethod, DDP_APOLLO_SCHEMA_REQUIERD } from '../lib/setup';
 import { DEFAULT_METHOD } from '../lib/common';
 import * as optics from '../lib/optics';
 
@@ -20,6 +20,15 @@ OpticsAgent.configureAgent({
 describe('#setup', function () {
   afterEach(function () {
     delete Meteor.default_server.method_handlers[DEFAULT_METHOD];
+  });
+
+  it('requires a schema', function () {
+    try {
+      setup();
+      throw new Error('Setup without schema should fail!');
+    } catch (e) {
+      chai.expect(e.message).to.equal(DDP_APOLLO_SCHEMA_REQUIERD);
+    }
   });
 
   describe('method', function () {
