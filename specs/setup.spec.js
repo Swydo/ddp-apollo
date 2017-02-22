@@ -4,29 +4,18 @@ import chai from 'chai';
 import sinon from 'sinon';
 import { makeExecutableSchema } from 'graphql-tools';
 import OpticsAgent from 'optics-agent';
+import gql from 'graphql-tag';
 
 import { setup, createGraphQlMethod } from '../lib/setup';
 import { DEFAULT_METHOD } from '../lib/common';
 import * as optics from '../lib/optics';
 
+import { typeDefs } from './data/typeDefs';
+import { resolvers } from './data/resolvers';
+
 OpticsAgent.configureAgent({
   apiKey: process.env.OPTICS_API_KEY || 'foo',
 });
-
-const typeDefs = [`
-type RootQuery {
-  foo: String
-}
-schema {
-  query: RootQuery
-}
-`];
-
-const resolvers = {
-  RootQuery: {
-    foo: () => 'bar',
-  },
-};
 
 describe('#setup', function () {
   afterEach(function () {
@@ -35,11 +24,31 @@ describe('#setup', function () {
 
   describe('method', function () {
     beforeEach(function () {
-      setup();
+      const schema = makeExecutableSchema({
+        resolvers,
+        typeDefs,
+      });
+
+      setup(schema);
     });
 
     it('should add a method', function (done) {
       Meteor.call(DEFAULT_METHOD, done);
+    });
+
+    it('should return data', function (done) {
+      const request = {
+        query: gql`{ foo }`,
+      };
+
+      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
+        try {
+          chai.expect(data.foo).to.equal('bar');
+          done(err);
+        } catch (e) {
+          done(e);
+        }
+      });
     });
   });
 
