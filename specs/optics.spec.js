@@ -2,11 +2,16 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import { createContext, finishContext } from '../lib/optics';
+import Agent from 'optics-agent/dist/Agent';
 
 describe('Optics', function () {
   describe('#createContext', function () {
     it('should create a context', function () {
-      chai.expect(createContext().startWallTime).to.be.a('number');
+      const context = createContext();
+
+      chai.expect(context.startWallTime).to.be.a('number');
+      chai.expect(context.queries).to.be.an.instanceof(Map);
+      chai.expect(context.agent).to.be.an.instanceof(Agent);
     });
   });
 
