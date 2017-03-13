@@ -1,8 +1,8 @@
 /* eslint-disable prefer-arrow-callback, func-names */
 /* eslint-env mocha */
 import chai from 'chai';
-import { createContext, finishContext } from '../lib/optics';
 import Agent from 'optics-agent/dist/Agent';
+import { createContext, finishContext } from '../lib/optics';
 
 describe('Optics', function () {
   describe('#createContext', function () {
