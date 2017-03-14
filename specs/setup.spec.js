@@ -6,7 +6,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 import OpticsAgent from 'optics-agent';
 import gql from 'graphql-tag';
 
-import { setup, createGraphQlMethod, DDP_APOLLO_SCHEMA_REQUIERD } from '../lib/setup';
+import { setup, createGraphQlMethod, DDP_APOLLO_SCHEMA_REQUIRED } from '../lib/setup';
 import { DEFAULT_METHOD } from '../lib/common';
 import * as optics from '../lib/optics';
 
@@ -28,7 +28,7 @@ describe('#setup', function () {
       setup();
       throw new Error('Setup without schema should fail!');
     } catch (e) {
-      chai.expect(e.message).to.equal(DDP_APOLLO_SCHEMA_REQUIERD);
+      chai.expect(e.message).to.equal(DDP_APOLLO_SCHEMA_REQUIRED);
     }
   });
 
