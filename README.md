@@ -34,12 +34,12 @@ import ApolloClient from 'apollo-client';
 import { DDPNetworkInterface } from 'meteor/swydo:ddp-apollo';
 
 export const client = new ApolloClient ({
-  networkInterface: new DDPNetworkInterface({ connection: Meteor.connection })
+  networkInterface: new DDPNetworkInterface()
 });
 ```
 
 ### Options
-- `connection`: The DDP connection to use. No default.
+- `connection`: The DDP connection to use. Default `Meteor.connection`.
 - `method`: The name of the method. Default `/graphql`.
 - `noRetry`: Don't send the requests again on reload. Default `true`. See [method documentation](https://docs.meteor.com/api/methods.html#Meteor-apply).
 

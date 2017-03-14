@@ -5,19 +5,19 @@ import { DDPNetworkInterface } from '../lib/ddp-network-interface';
 import { DEFAULT_METHOD } from '../lib/common';
 
 describe('#DDPNetworkInterface', function () {
-  before(function () {
-    this.ni = new DDPNetworkInterface({
-      connection: Meteor.connection,
-    });
+  beforeEach(function (done) {
+    this.network = new DDPNetworkInterface();
   });
 
   it('should add a default method', function () {
-    chai.expect(this.ni.method).to.equal(DEFAULT_METHOD);
+    chai.expect(this.network.method).to.equal(DEFAULT_METHOD);
   });
 
   describe('#query', function () {
     it('should return a promise', function () {
-      chai.expect(this.ni.query()).to.be.instanceof(Promise);
+      chai.expect(this.network.query()).to.be.instanceof(Promise);
+    });
+  });
     });
   });
 });
