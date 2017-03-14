@@ -23,7 +23,7 @@
   "scripts": {
     "doctoc": "doctoc ./README.md",
     "eslint": "eslint ./lib ./specs",
-    "publish": "meteor npm run eslint -s & rm -rf ./node_modules & meteor publish",
+    "publish": "meteor npm install && meteor npm run eslint -s && meteor npm run doctoc -s && rm -rf ./node_modules && meteor publish",
     "test": "MOCHA_RUN_ORDER=serial meteor test-packages ./ --once --driver-package dispatch:mocha-phantomjs",
     "test-watch": "MOCHA_RUN_ORDER=serial meteor test-packages ./ --driver-package practicalmeteor:mocha"
   },
