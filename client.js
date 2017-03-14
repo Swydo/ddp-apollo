@@ -1,1 +1,1 @@
-export * from './lib/ddp-network-interface';
+export * from './lib/client/ddp-network-interface';

@@ -2,7 +2,7 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import Agent from 'optics-agent/dist/Agent';
-import { createContext, finishContext } from '../lib/optics';
+import { createContext, finishContext } from '../../lib/server/optics';
 
 describe('Optics', function () {
   describe('#createContext', function () {

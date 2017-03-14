@@ -1,3 +1,3 @@
-import './setup.spec';
-import './optics.spec';
-import './helpers';
+import './server/setup.spec';
+import './server/optics.spec';
+import './server/helpers';

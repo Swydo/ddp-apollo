@@ -1,1 +1,1 @@
-import './ddp-network-interface.spec';
+import './client/ddp-network-interface.spec';

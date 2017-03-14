@@ -2,8 +2,8 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import gql from 'graphql-tag';
-import { DDPNetworkInterface } from '../lib/ddp-network-interface';
-import { DEFAULT_METHOD } from '../lib/common';
+import { DDPNetworkInterface } from '../../lib/client/ddp-network-interface';
+import { DEFAULT_METHOD } from '../../lib/common/defaults';
 
 describe('#DDPNetworkInterface', function () {
   beforeEach(function (done) {

@@ -6,12 +6,12 @@ import { makeExecutableSchema } from 'graphql-tools';
 import OpticsAgent from 'optics-agent';
 import gql from 'graphql-tag';
 
-import { setup, createGraphQlMethod, DDP_APOLLO_SCHEMA_REQUIRED } from '../lib/setup';
-import { DEFAULT_METHOD } from '../lib/common';
-import * as optics from '../lib/optics';
+import { setup, createGraphQlMethod, DDP_APOLLO_SCHEMA_REQUIRED } from '../../lib/server/setup';
+import { DEFAULT_METHOD } from '../../lib/common/defaults';
+import * as optics from '../../lib/server/optics';
 
-import { typeDefs } from './data/typeDefs';
-import { resolvers } from './data/resolvers';
+import { typeDefs } from '../data/typeDefs';
+import { resolvers } from '../data/resolvers';
 import { reset } from './helpers';
 
 OpticsAgent.configureAgent({

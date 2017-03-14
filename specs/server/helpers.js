@@ -1,9 +1,14 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { PubSub, SubscriptionManager } from 'graphql-subscriptions';
-import { setup } from '../lib/setup';
-import { typeDefs } from './data/typeDefs';
-import { resolvers } from './data/resolvers';
-import { DEFAULT_METHOD, DEFAULT_PUBLICATION } from '../lib/common';
+
+import { setup } from '../../lib/server/setup';
+import {
+  DEFAULT_METHOD,
+  DEFAULT_PUBLICATION,
+} from '../../lib/common/defaults';
+
+import { typeDefs } from '../data/typeDefs';
+import { resolvers } from '../data/resolvers';
 
 export function reset() {
   delete Meteor.server.publish_handlers[DEFAULT_PUBLICATION];
