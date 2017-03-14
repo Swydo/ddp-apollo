@@ -57,11 +57,11 @@ describe('#DDPNetworkInterface', function () {
 
       const subId = this.network.subscribe(request);
 
-      chai.expect(this.network._subs[subId]).to.be.ok;
+      chai.expect(this.network.registeredSubscriptions[subId]).to.be.ok;
 
       setTimeout(() => {
         this.network.unsubscribe(subId);
-        chai.expect(this.network._subs[subId]).to.not.be.ok;
+        chai.expect(this.network.registeredSubscriptions[subId]).to.not.be.ok;
         done();
       }, 10);
     });
