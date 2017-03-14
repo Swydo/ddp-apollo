@@ -12,6 +12,7 @@ DDP network interface for Apollo using a Meteor method
   - [Options](#options)
 - [Server setup](#server-setup)
   - [Options](#options-1)
+- [GraphQL subscriptions](#graphql-subscriptions)
 - [Apollo Optics](#apollo-optics)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -23,7 +24,7 @@ meteor add swydo:ddp-apollo
 ```
 
 ```
-meteor npm install --save graphql-server-core
+meteor npm install --save graphql-server-core graphql
 ```
 
 ## Client setup
@@ -40,7 +41,7 @@ export const client = new ApolloClient ({
 
 ### Options
 - `connection`: The DDP connection to use. Default `Meteor.connection`.
-- `method`: The name of the method. Default `/graphql`.
+- `method`: The name of the method. Default `__graphql`.
 - `noRetry`: Don't send the requests again on reload. Default `true`. See [method documentation](https://docs.meteor.com/api/methods.html#Meteor-apply).
 
 ## Server setup
@@ -56,8 +57,34 @@ setup(schema, options);
 ```
 
 ### Options
-- `method`: The name of the method. Default `/graphql`.
-- `disableOptics`: Disable Apollo Optics monitoring. Default `undefined` (auto-detected).
+- `method`: The name of the method. Default `__graphql`.
+- `disableOptics`: Disable Apollo Optics monitoring. Default `undefined`. See [Apollo Optics](#apollo-optics).
+- `subscriptionManager`: A GraphQL subscription manager. No default. See [GraphQL subscriptions](#graphql-subscriptions).
+
+## GraphQL subscriptions
+```sh
+meteor npm install --save graphql-subscriptions
+```
+
+To support GraphQL subscriptions, pass a subscription manager:
+
+```javascript
+import { PubSub, SubscriptionManager } from 'graphql-subscriptions';
+
+const pubsub = new PubSub();
+
+const subscriptionManager = new SubscriptionManager({
+  schema,
+  pubsub
+});
+
+setup(schema, {
+  subscriptionManager
+});
+```
+See [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions) package for setup details.
+
+`client.subscribe(request, handle)` and `client.unsubsribe(id)` are now operational!
 
 ## Apollo Optics
 You can also use [Apollo Optics](http://www.apollodata.com/optics) with ddp-apollo.
