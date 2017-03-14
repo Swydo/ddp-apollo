@@ -12,14 +12,15 @@ import * as optics from '../lib/optics';
 
 import { typeDefs } from './data/typeDefs';
 import { resolvers } from './data/resolvers';
+import { reset } from './helpers';
 
 OpticsAgent.configureAgent({
   apiKey: process.env.OPTICS_API_KEY || 'foo',
 });
 
 describe('#setup', function () {
-  afterEach(function () {
-    delete Meteor.default_server.method_handlers[DEFAULT_METHOD];
+  beforeEach(function () {
+    reset();
   });
 
   it('requires a schema', function () {
