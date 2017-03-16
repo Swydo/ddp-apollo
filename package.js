@@ -2,6 +2,7 @@
 var packages = [
   'ecmascript',
   'promise',
+  'random',
 ];
 
 Package.describe({
