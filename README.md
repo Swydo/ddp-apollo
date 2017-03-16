@@ -42,7 +42,6 @@ export const client = new ApolloClient ({
 ### Options
 - `connection`: The DDP connection to use. Default `Meteor.connection`.
 - `method`: The name of the method. Default `__graphql`.
-- `noRetry`: Don't send the requests again on reload. Default `true`. See [method documentation](https://docs.meteor.com/api/methods.html#Meteor-apply).
 
 ## Server setup
 The server will add a method that will be used by the DDP network interface.
