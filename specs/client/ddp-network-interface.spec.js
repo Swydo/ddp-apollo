@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow-callback, func-names */
 /* eslint-env mocha */
 import chai from 'chai';
+import sinon from 'sinon';
 import gql from 'graphql-tag';
 import { DDPNetworkInterface } from '../../lib/client/ddp-network-interface';
 import { DEFAULT_METHOD } from '../../lib/common/defaults';
@@ -46,6 +47,32 @@ describe('#DDPNetworkInterface', function () {
       chai.expect(subId).to.be.a('string');
 
       Meteor.call('ddp-apollo/publish', 'fooSub', value);
+    });
+
+    it('should receive multiple updates', function (done) {
+      const request = {
+        query: gql`subscription { fooSub }`,
+      };
+      const value = 'bar';
+
+      const dummy = { handler() {} };
+
+      const spy = sinon.spy(dummy, 'handler');
+
+      this.network.subscribe(request, dummy.handler);
+
+      Meteor.call('ddp-apollo/publish', 'fooSub', value);
+      Meteor.call('ddp-apollo/publish', 'fooSub', value);
+      Meteor.call('ddp-apollo/publish', 'fooSub', value);
+
+      Meteor.setTimeout(() => {
+        try {
+          chai.expect(spy.callCount).to.equal(3);
+          done();
+        } catch (e) {
+          done(e);
+        }
+      }, 50);
     });
   });
 
