@@ -1,6 +1,6 @@
 # DDP-Apollo
 
-DDP network interface for Apollo using a Meteor method
+DDP network interface for Apollo
 
 [![Build Status](https://travis-ci.org/Swydo/ddp-apollo.svg?branch=master)](https://travis-ci.org/Swydo/ddp-apollo)
 [![Greenkeeper badge](https://badges.greenkeeper.io/Swydo/ddp-apollo.svg)](https://greenkeeper.io/)
