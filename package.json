@@ -16,7 +16,7 @@
     "graphql-server-core": "^0.7.0",
     "graphql-subscriptions": "^0.4.0",
     "graphql-tag": "^2.0.0",
-    "graphql-tools": "^0.11.0",
+    "graphql-tools": "^1.0.0",
     "optics-agent": "^1.0.5",
     "sinon": "^2.1.0"
   },
