@@ -57,7 +57,7 @@ describe('#DDPNetworkInterface', function () {
       Meteor.call('ddp-apollo/publish', 'fooSub', value);
     });
 
-    it('should receive multiple updates', async function (done) {
+    it('should receive multiple updates', function (done) {
       const loops = 5;
       const request = {
         query: gql`subscription { fooSub }`,
@@ -76,16 +76,16 @@ describe('#DDPNetworkInterface', function () {
         promises.push(callPromise('ddp-apollo/publish', 'fooSub', value));
       }
 
-      await Promise.all(promises);
-
-      Meteor.setTimeout(() => {
-        try {
-          chai.expect(spy.callCount).to.equal(loops);
-          done();
-        } catch (e) {
-          done(e);
-        }
-      }, 100);
+      Promise.all(promises).then(() => {
+        Meteor.setTimeout(() => {
+          try {
+            chai.expect(spy.callCount).to.equal(loops);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        }, 100);
+      });
     });
   });
 
