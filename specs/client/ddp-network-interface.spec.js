@@ -6,6 +6,14 @@ import gql from 'graphql-tag';
 import { DDPNetworkInterface } from '../../lib/client/ddp-network-interface';
 import { DEFAULT_METHOD } from '../../lib/common/defaults';
 
+function callPromise(name, ...args) {
+  return new Promise((resolve, reject) => {
+    Meteor.apply(name, args, (err, data) => {
+      err ? reject(err) : resolve(data);
+    });
+  });
+}
+
 describe('#DDPNetworkInterface', function () {
   beforeEach(function (done) {
     this.network = new DDPNetworkInterface();
@@ -49,7 +57,8 @@ describe('#DDPNetworkInterface', function () {
       Meteor.call('ddp-apollo/publish', 'fooSub', value);
     });
 
-    it('should receive multiple updates', function (done) {
+    it('should receive multiple updates', async function (done) {
+      const loops = 5;
       const request = {
         query: gql`subscription { fooSub }`,
       };
@@ -61,18 +70,22 @@ describe('#DDPNetworkInterface', function () {
 
       this.network.subscribe(request, dummy.handler);
 
-      Meteor.call('ddp-apollo/publish', 'fooSub', value);
-      Meteor.call('ddp-apollo/publish', 'fooSub', value);
-      Meteor.call('ddp-apollo/publish', 'fooSub', value);
+      const promises = [];
+
+      for (let i = 0; i < loops; i += 1) {
+        promises.push(callPromise('ddp-apollo/publish', 'fooSub', value));
+      }
+
+      await Promise.all(promises);
 
       Meteor.setTimeout(() => {
         try {
-          chai.expect(spy.callCount).to.equal(3);
+          chai.expect(spy.callCount).to.equal(loops);
           done();
         } catch (e) {
           done(e);
         }
-      }, 50);
+      }, 100);
     });
   });
 
