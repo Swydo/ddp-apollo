@@ -1,5 +1,5 @@
 export const resolvers = {
-  RootQuery: {
+  Query: {
     foo: () => 'bar',
   },
   Subscription: {

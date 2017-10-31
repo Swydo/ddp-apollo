@@ -1,5 +1,5 @@
 export const typeDefs = [`
-type RootQuery {
+type Query {
   foo: String
 }
 
@@ -8,7 +8,7 @@ type Subscription {
 }
 
 schema {
-  query: RootQuery
+  query: Query
   subscription: Subscription
 }
 `];
