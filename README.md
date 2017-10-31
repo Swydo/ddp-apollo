@@ -15,6 +15,7 @@ DDP network interface for Apollo
 - [Server setup](#server-setup)
   - [Options](#options-1)
 - [GraphQL subscriptions](#graphql-subscriptions)
+  - [Setting up PubSub](#setting-up-pubsub)
 - [Apollo Optics](#apollo-optics)
 - [Sponsor](#sponsor)
 
@@ -27,7 +28,7 @@ meteor add swydo:ddp-apollo
 ```
 
 ```
-meteor npm install --save graphql-server-core graphql
+meteor npm install --save graphql
 ```
 
 ## Client setup
@@ -45,6 +46,7 @@ export const client = new ApolloClient ({
 ### Options
 - `connection`: The DDP connection to use. Default `Meteor.connection`.
 - `method`: The name of the method. Default `__graphql`.
+- `publication`: The name of the publication. Default `__graphql-subscriptions`.
 
 ## Server setup
 The server will add a method that will be used by the DDP network interface.
@@ -60,33 +62,55 @@ setup(schema, options);
 
 ### Options
 - `method`: The name of the method. Default `__graphql`.
+- `publication`: The name of the publication. Default `__graphql-subscriptions`.
 - `disableOptics`: Disable Apollo Optics monitoring. Default `undefined`. See [Apollo Optics](#apollo-optics).
-- `subscriptionManager`: A GraphQL subscription manager. No default. See [GraphQL subscriptions](#graphql-subscriptions).
 
 ## GraphQL subscriptions
+Subscription support is baked into this package. Simply add the subscriptions to your schema and resolvers and everything works.
+
+```graphql
+// schema.graphql
+type Query {
+  name: String
+}
+
+type Subscription {
+  message: String
+}
+
+schema {
+  query: Query
+  subscription: Subscription
+}
+```
+
+### Setting up PubSub
+
 ```sh
 meteor npm install --save graphql-subscriptions
 ```
 
-To support GraphQL subscriptions, pass a subscription manager:
-
 ```javascript
-import { PubSub, SubscriptionManager } from 'graphql-subscriptions';
+import { PubSub } from 'graphql-subscriptions';
 
 const pubsub = new PubSub();
 
-const subscriptionManager = new SubscriptionManager({
-  schema,
-  pubsub
-});
+export const resolvers = {
+  Query: {
+    name: () => 'bar',
+  },
+  Subscription: {
+    message: {
+      subscribe: () => pubsub.asyncIterator('SOMETHING_CHANGED'),
+    },
+  },
+};
 
-setup(schema, {
-  subscriptionManager
-});
+// Later you can publish updates like this:
+pubsub.publish('SOMETHING_CHANGED', { message: 'hello world' });
 ```
-See [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions) package for setup details.
 
-`client.subscribe(request, handle)` and `client.unsubsribe(id)` are now operational!
+See [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions) package for more setup details and other pubsub mechanisms.
 
 ## Apollo Optics
 You can also use [Apollo Optics](http://www.apollodata.com/optics) with ddp-apollo.

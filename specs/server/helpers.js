@@ -1,6 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import { PubSub, SubscriptionManager } from 'graphql-subscriptions';
-
+import { pubsub } from '../data/pubsub';
 import { setup } from '../../lib/server/setup';
 import {
   DEFAULT_METHOD,
@@ -15,8 +14,6 @@ export function reset() {
   delete Meteor.server.method_handlers[DEFAULT_METHOD];
 }
 
-let pubsub;
-
 Meteor.methods({
   'ddp-apollo/setup': function setupDdpApollo() {
     reset();
@@ -26,19 +23,10 @@ Meteor.methods({
       typeDefs,
     });
 
-    pubsub = new PubSub();
-
-    const subscriptionManager = new SubscriptionManager({
-      schema,
-      pubsub,
-    });
-
-    setup(schema, {
-      subscriptionManager,
-    });
+    setup(schema);
   },
 
-  'ddp-apollo/publish': function publish(name, data) {
-    pubsub && pubsub.publish(name, data);
+  'ddp-apollo/publish': function publish(topic, data) {
+    pubsub.publish(topic, data);
   },
 });
