@@ -1,9 +1,11 @@
 # DDP-Apollo
-
-DDP network interface for Apollo
+DDP link and server for Apollo
 
 [![Build Status](https://travis-ci.org/Swydo/ddp-apollo.svg?branch=master)](https://travis-ci.org/Swydo/ddp-apollo)
 [![Greenkeeper badge](https://badges.greenkeeper.io/Swydo/ddp-apollo.svg)](https://greenkeeper.io/)
+
+## Purpose
+This package has been created to levarage the power of DDP for GraphQL queries and subscriptions. For Meteor developers there is no need to setup a separate HTTP server or websocket connection, because DDP offers all we need and has been well tested over time.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -32,14 +34,17 @@ meteor npm install --save graphql
 ```
 
 ## Client setup
-This package gives you a network interface for you Apollo Client.
+This package gives you a DDPLink for your Apollo Client.
 
 ```javascript
 import ApolloClient from 'apollo-client';
-import { DDPNetworkInterface } from 'meteor/swydo:ddp-apollo';
+import { DDPLink } from 'meteor/swydo:ddp-apollo';
+// Apollo requires a cache to be added as well
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 export const client = new ApolloClient ({
-  networkInterface: new DDPNetworkInterface()
+  link: new DDPLink(),
+  cache: new InMemoryCache()
 });
 ```
 
@@ -85,7 +90,6 @@ schema {
 ```
 
 ### Setting up PubSub
-
 ```sh
 meteor npm install --save graphql-subscriptions
 ```

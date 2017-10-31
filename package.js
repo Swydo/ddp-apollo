@@ -2,13 +2,12 @@
 var packages = [
   'ecmascript',
   'promise',
-  'random',
 ];
 
 Package.describe({
   name: 'swydo:ddp-apollo',
   version: '0.3.0',
-  summary: 'DDP network interface for Apollo using a Meteor method',
+  summary: 'DDP link and server for Apollo',
   git: 'https://github.com/swydo/ddp-apollo',
   documentation: 'README.md',
 });
