@@ -2,6 +2,7 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import gql from 'graphql-tag';
+import { Promise } from 'meteor/promise';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { getDDPLink } from '../../lib/client/apollo-link-ddp';
@@ -9,6 +10,9 @@ import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
 describe('ApolloClient with DDP link', function () {
   beforeEach(function () {
+    // The ApolloClient won't recognize Promise in package tests unless exported like this
+    global.Promise = Promise;
+
     this.client = new ApolloClient({
       link: getDDPLink(),
       cache: new InMemoryCache(),
