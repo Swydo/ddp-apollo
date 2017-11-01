@@ -53,6 +53,13 @@ export const client = new ApolloClient ({
 - `method`: The name of the method. Default `__graphql`.
 - `publication`: The name of the publication. Default `__graphql-subscriptions`.
 
+```javascript
+// Pass options to the DDPLink constructor
+new DDPLink({
+  connection: Meteor.connection
+});
+```
+
 ## Server setup
 The server will add a method that will be used by the DDP network interface.
 
