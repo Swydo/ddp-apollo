@@ -39,7 +39,7 @@ describe('#DDPNetworkInterface', function () {
       };
       const value = 'bar';
 
-      const network = this.network;
+      const { network } = this;
       let subId;
 
       function handler(err, data) {
