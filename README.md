@@ -151,9 +151,9 @@ export const client = new ApolloClient ({
 ```
 
 ## Apollo Optics
-You can also use [Apollo Optics](http://www.apollodata.com/optics) with ddp-apollo.
+> IMPORTANT: Optics is being replaced by [Engine](https://www.apollographql.com/engine/). Optics is still operational, but Engine is it's official successor. At the time of writing Engine only works as an HTTP middleware, so it has no support for DDP-Apollo.
 
-Before passing your schema to the setup function you must first instrument it:
+To use Optics, you must first instrument the schema before passing it to the setup function:
 
 ```javascript
 import OpticsAgent from 'optics-agent';
@@ -161,9 +161,9 @@ import OpticsAgent from 'optics-agent';
 OpticsAgent.instrumentSchema(schema);
 ```
 
-That's it! Now `ddp-apollo` will take care of the rest. In case you don't want to use optics after instrumenting the schema you can disable it by passing `disableOptics: true` to the server options.
+That's it! Now `ddp-apollo` will take care of the rest.
 
-See the [Optics README](https://github.com/apollographql/optics-agent-js/blob/master/README.md) for all the setup details and options.
+See the [Optics README](https://github.com/apollographql/optics-agent-js/blob/master/README.md) for all setup details and options.
 
 ## Sponsor
 [![Swydo](http://assets.swydo.com/img/s-wydo-logo.228x100.png)](https://swy.do)
