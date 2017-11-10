@@ -4,8 +4,14 @@ DDP link and server for Apollo
 [![Build Status](https://travis-ci.org/Swydo/ddp-apollo.svg?branch=master)](https://travis-ci.org/Swydo/ddp-apollo)
 [![Greenkeeper badge](https://badges.greenkeeper.io/Swydo/ddp-apollo.svg)](https://greenkeeper.io/)
 
-## Purpose
+## Benefits
 This package has been created to levarage the power of DDP for GraphQL queries and subscriptions. For Meteor developers there is no need to setup a separate HTTP server or websocket connection, because DDP offers all we need and has been well tested over time.
+
+- Works with the Meteor `accounts` packages out of the box, giving a `userId` in your resolvers
+- Doesn't require an HTTP server to be setup, like with express, koa or hapi
+- Doesn't require an extra websocket for GraphQL Subscriptions, because DDP already has a websocket
+- Easy to combine with other Apollo Links
+- Only the DDPSubscriptionLink can be used if you already setup an HTTP server
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
