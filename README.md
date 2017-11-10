@@ -18,6 +18,7 @@ This package has been created to levarage the power of DDP for GraphQL queries a
   - [Options](#options-1)
 - [GraphQL subscriptions](#graphql-subscriptions)
   - [Setting up PubSub](#setting-up-pubsub)
+  - [Using DDP only for subscriptions](#using-ddp-only-for-subscriptions)
 - [Apollo Optics](#apollo-optics)
 - [Sponsor](#sponsor)
 
@@ -124,6 +125,30 @@ pubsub.publish('SOMETHING_CHANGED', { message: 'hello world' });
 ```
 
 See [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions) package for more setup details and other pubsub mechanisms.
+
+### Using DDP only for subscriptions
+If you already have an HTTP server setup and you are looking to support GraphQL Subscriptions in your Meteor application, you can use the `DDPSubscriptionLink` stand-alone.
+
+```javascript
+import { ApolloClient, split } from 'apollo-client';
+import { HttpLink } from "apollo-link-http";
+import { DDPSubscriptionLink, isSubscription } from 'meteor/swydo:ddp-apollo';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
+const httpLink = new HttpLink({ uri: "/graphql" });
+const subscriptionLink = new DDPSubscriptionLink();
+
+const link = split(
+  isSubscription,
+  subscriptionLink,
+  httpLink,
+);
+
+export const client = new ApolloClient ({
+  link,
+  cache: new InMemoryCache()
+});
+```
 
 ## Apollo Optics
 You can also use [Apollo Optics](http://www.apollodata.com/optics) with ddp-apollo.
