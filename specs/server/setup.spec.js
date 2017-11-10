@@ -40,7 +40,7 @@ describe('#setup', function () {
         typeDefs,
       });
 
-      setup(schema);
+      setup({ schema });
     });
 
     it('should add a method', function (done) {

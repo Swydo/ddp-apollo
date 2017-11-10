@@ -67,12 +67,14 @@ The server will add a method that will be used by the DDP network interface.
 import { schema } from './path/to/your/executable/schema';
 import { setup } from 'meteor/swydo:ddp-apollo';
 
-const options = {}; // See below for options
-
-setup(schema, options);
+setup({
+  schema,
+  ...otherOptions
+});
 ```
 
 ### Options
+- `schema`: The GraphQL schema. Default `undefined`. Required.
 - `method`: The name of the method. Default `__graphql`.
 - `publication`: The name of the publication. Default `__graphql-subscriptions`.
 - `disableOptics`: Disable Apollo Optics monitoring. Default `undefined`. See [Apollo Optics](#apollo-optics).
