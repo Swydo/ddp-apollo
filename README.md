@@ -1,5 +1,5 @@
 # DDP-Apollo
-DDP link and server for Apollo
+DDP link for Apollo with GraphQL Subscriptions support
 
 [![Build Status](https://travis-ci.org/Swydo/ddp-apollo.svg?branch=master)](https://travis-ci.org/Swydo/ddp-apollo)
 [![Greenkeeper badge](https://badges.greenkeeper.io/Swydo/ddp-apollo.svg)](https://greenkeeper.io/)
@@ -9,9 +9,10 @@ This package has been created to levarage the power of DDP for GraphQL queries a
 
 - Works with the Meteor `accounts` packages out of the box, giving a `userId` in your resolvers
 - Doesn't require an HTTP server to be setup, like with express, koa or hapi
+- Supports GraphQL Subscriptions out-of-the-box
 - Doesn't require an extra websocket for GraphQL Subscriptions, because DDP already has a websocket
 - Easy to combine with other Apollo Links
-- Only the DDPSubscriptionLink can be used if you already setup an HTTP server
+- Already have a server setup? Use `DDPSubscriptionLink` stand-alone for just Subscriptions support. [Read more](#using-ddp-only-for-subscriptions)
 
 ## Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -42,7 +43,7 @@ meteor npm install --save graphql
 ```
 
 ## Client setup
-This package gives you a DDPLink for your Apollo Client.
+This package gives you a `DDPLink` for your Apollo Client.
 
 ```javascript
 import ApolloClient from 'apollo-client';
@@ -158,7 +159,7 @@ export const client = new ApolloClient ({
 ```
 
 ## Apollo Optics
-> IMPORTANT: Optics is being replaced by [Engine](https://www.apollographql.com/engine/). Optics is still operational, but Engine is it's official successor. At the time of writing Engine only works as an HTTP middleware, so it has no support for DDP-Apollo.
+> IMPORTANT: Optics is being replaced by [Engine](https://www.apollographql.com/engine/). Optics is still operational, but Engine is it's official successor. At the time of writing Engine only works as an HTTP middleware, meaning it has no support for GraphQL Subscriptions or DDP-Apollo.
 
 To use Optics, you must first instrument the schema before passing it to the setup function:
 
