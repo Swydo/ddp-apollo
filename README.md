@@ -13,6 +13,7 @@ This package has been created to levarage the power of DDP for GraphQL queries a
 - Easy to combine with other Apollo Links
 - Only the DDPSubscriptionLink can be used if you already setup an HTTP server
 
+## Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
