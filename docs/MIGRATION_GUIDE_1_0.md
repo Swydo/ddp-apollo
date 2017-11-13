@@ -1,6 +1,20 @@
 # Migration guide to 1.0
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
 
-## Installation
+- [Installation changes](#installation-changes)
+- [Client setup](#client-setup)
+  - [Previously](#previously)
+  - [Now](#now)
+- [Server setup](#server-setup)
+  - [Previously](#previously-1)
+  - [Now](#now-1)
+- [Subscriptions](#subscriptions)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Installation changes
 You'll need the Apollo Link package and GrahpQL for Apollo Client 2 support:
 ```
 meteor npm install --save apollo-link graphql
