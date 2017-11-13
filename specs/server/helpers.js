@@ -23,7 +23,7 @@ Meteor.methods({
       typeDefs,
     });
 
-    setup(schema);
+    setup({ schema });
   },
 
   'ddp-apollo/publish': function publish(topic, data) {
