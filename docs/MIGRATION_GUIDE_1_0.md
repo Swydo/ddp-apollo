@@ -1,6 +1,7 @@
 # Migration guide to 1.0
 
 ## Installation
+You'll need the Apollo Link package and GrahpQL for Apollo Client 2 support:
 ```
 meteor npm install --save apollo-link graphql
 ```
@@ -53,7 +54,7 @@ setup({
 });
 ```
 
-### Subscriptions
+## Subscriptions
 `SubscriptionsManager` from `graphql-subscriptions` has been deprecated. Support for Subscriptions is now build into this package. All you need to do is setup the PubSub mechanism:
 
 ```javascript
