@@ -1,18 +1,17 @@
 # DDP-Apollo
-DDP link for Apollo with GraphQL Subscriptions support
+DDP-Apollo has been created to leverage the power of DDP for GraphQL queries and subscriptions. For Meteor developers there is no real need for an HTTP server or extra websocket connection, because DDP offers all we need and has been well tested over time.
+
+- DDP-Apollo is one of the easiest ways to get GraphQL running for Meteor developers
+- Works with the Meteor accounts packages out of the box, giving a userId in your resolvers
+- Doesn’t require an HTTP server to be setup, like with express, koa or hapi
+- Supports GraphQL Subscriptions out-of-the-box
+- Doesn’t require an extra websocket for GraphQL Subscriptions, because DDP already has a websocket
+- Easy to combine with other Apollo Links
+- Already have a server setup? Use `DDPSubscriptionLink` stand-alone for just Subscriptions support. [Read more](#using-ddp-only-for-subscriptions)
+- Works with Apollo Dev Tools, just like any other Apollo link
 
 [![Build Status](https://travis-ci.org/Swydo/ddp-apollo.svg?branch=master)](https://travis-ci.org/Swydo/ddp-apollo)
 [![Greenkeeper badge](https://badges.greenkeeper.io/Swydo/ddp-apollo.svg)](https://greenkeeper.io/)
-
-## Benefits
-This package has been created to leverage the power of DDP for GraphQL queries and subscriptions. For Meteor developers there is no need to setup a separate HTTP server or websocket connection, because DDP offers all we need and has been well tested over time.
-
-- Works with the Meteor `accounts` packages out of the box, giving a `userId` in your resolvers
-- Doesn't require an HTTP server to be setup, like with express, koa or hapi
-- Supports GraphQL Subscriptions out-of-the-box
-- Doesn't require an extra websocket for GraphQL Subscriptions, because DDP already has a websocket
-- Easy to combine with other Apollo Links
-- Already have a server setup? Use `DDPSubscriptionLink` stand-alone for just Subscriptions support. [Read more](#using-ddp-only-for-subscriptions)
 
 ## Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
