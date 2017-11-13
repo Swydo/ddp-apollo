@@ -38,7 +38,7 @@ meteor add swydo:ddp-apollo
 ```
 
 ```
-meteor npm install --save graphql
+meteor npm install --save graphql apollo-link
 ```
 
 ## Client setup
