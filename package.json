@@ -19,8 +19,8 @@
     "graphql-subscriptions": "0.5.4",
     "graphql-tag": "2.5.0",
     "graphql-tools": "2.7.2",
-    "optics-agent": "1.1.8",
-    "sinon": "4.0.2"
+    "optics-agent": "1.1.9",
+    "sinon": "4.1.2"
   },
   "scripts": {
     "doctoc": "doctoc ./README.md",

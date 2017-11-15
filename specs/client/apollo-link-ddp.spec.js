@@ -2,9 +2,9 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import gql from 'graphql-tag';
-import { Observable } from 'apollo-link';
-import { getDDPLink } from '../../lib/client/apollo-link-ddp';
-import { DEFAULT_METHOD } from '../../lib/common/defaults';
+import { ApolloLink, Observable } from 'apollo-link';
+import { getDDPLink, DDPMethodLink, DDPSubscriptionLink } from '../../lib/client/apollo-link-ddp';
+import { DEFAULT_METHOD, DEFAULT_PUBLICATION } from '../../lib/common/defaults';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
 function callPromise(name, ...args) {
@@ -15,11 +15,9 @@ function callPromise(name, ...args) {
   });
 }
 
-describe('DDPLink', function () {
-  beforeEach(function (done) {
-    this.link = getDDPLink();
-
-    Meteor.call('ddp-apollo/setup', done);
+describe('DDPMethodLink', function () {
+  beforeEach(function () {
+    this.link = new DDPMethodLink();
   });
 
   it('should add a default method', function () {
@@ -35,8 +33,20 @@ describe('DDPLink', function () {
       chai.expect(this.link.request(operation)).to.be.instanceof(Observable);
     });
   });
+});
 
-  describe('#subscribe', function () {
+describe('DDPSubscriptionLink', function () {
+  beforeEach(function (done) {
+    this.link = new DDPSubscriptionLink();
+
+    Meteor.call('ddp-apollo/setup', done);
+  });
+
+  it('should add a default publication', function () {
+    chai.expect(this.link.publication).to.equal(DEFAULT_PUBLICATION);
+  });
+
+  describe('#request', function () {
     it('should return an id and data', function (done) {
       const operation = {
         query: gql`subscription { fooSub }`,
@@ -92,5 +102,15 @@ describe('DDPLink', function () {
         }, 100);
       });
     });
+  });
+});
+
+describe('#getDDPLink', function () {
+  beforeEach(function () {
+    this.link = getDDPLink();
+  });
+
+  it('should return an instance of ApolloLink', function () {
+    chai.expect(this.link).to.be.an.instanceOf(ApolloLink);
   });
 });

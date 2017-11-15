@@ -15,7 +15,7 @@ function callPromise(name, ...args) {
   });
 }
 
-describe('#DDPNetworkInterface', function () {
+describe('#DDPNetworkInterface (DEPRECATED)', function () {
   beforeEach(function (done) {
     this.network = new DDPNetworkInterface();
 

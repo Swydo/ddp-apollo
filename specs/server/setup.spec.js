@@ -7,7 +7,7 @@ import OpticsAgent from 'optics-agent';
 import gql from 'graphql-tag';
 
 import { setup, DDP_APOLLO_SCHEMA_REQUIRED } from '../../lib/server/setup';
-import { createGraphQlMethod } from '../../lib/server/createGraphQlMethod';
+import { createGraphQLMethod } from '../../lib/server/createGraphQLMethod';
 import { DEFAULT_METHOD } from '../../lib/common/defaults';
 import * as optics from '../../lib/server/optics';
 
@@ -40,7 +40,7 @@ describe('#setup', function () {
         typeDefs,
       });
 
-      setup(schema);
+      setup({ schema });
     });
 
     it('should add a method', function (done) {
@@ -84,7 +84,7 @@ describe('#setup', function () {
 
       const spies = functions.map(name => sinon.spy(fakeOptics, name));
 
-      createGraphQlMethod(schema, { optics: fakeOptics })();
+      createGraphQLMethod(schema, { optics: fakeOptics })();
 
       Meteor.defer(() => {
         try {
