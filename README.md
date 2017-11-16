@@ -55,7 +55,7 @@ This package gives you a `DDPLink` for your Apollo Client.
 ```javascript
 import ApolloClient from 'apollo-client';
 import { DDPLink } from 'meteor/swydo:ddp-apollo';
-// Apollo requires a cache to be added as well
+// Choose any cache implementation, but we'll use InMemoryCache as an example
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 export const client = new ApolloClient ({
@@ -122,6 +122,10 @@ meteor npm install --save graphql-subscriptions
 ```javascript
 import { PubSub } from 'graphql-subscriptions';
 
+// The pubsub mechanism of your choice, for instance:
+// - PubSub from graphql-subscriptions (not recommended for production)
+// - RedisPubSub from graphql-redis-subscriptions
+// - MQTTPubSub from graphql-mqtt-subscriptions
 const pubsub = new PubSub();
 
 export const resolvers = {
