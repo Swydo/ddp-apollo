@@ -31,7 +31,7 @@ describe('ApolloClient with DDP link', function () {
       const observer = this.client.subscribe({ query: gql`subscription { fooSub }` });
 
       const subscription = observer.subscribe({
-        next: (data) => {
+        next: ({ data }) => {
           try {
             chai.expect(data).to.deep.equal(message);
             subscription.unsubscribe();
