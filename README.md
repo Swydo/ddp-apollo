@@ -26,6 +26,7 @@ DDP-Apollo has been created to leverage the power of DDP for GraphQL queries and
 - [GraphQL subscriptions](#graphql-subscriptions)
   - [Setting up PubSub](#setting-up-pubsub)
   - [Using DDP only for subscriptions](#using-ddp-only-for-subscriptions)
+- [Rate limiting GraphQL calls](#rate-limiting-graphql-calls)
 - [Apollo Optics](#apollo-optics)
 - [Sponsor](#sponsor)
 
