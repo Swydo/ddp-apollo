@@ -157,6 +157,28 @@ export const client = new ApolloClient ({
 });
 ```
 
+## Rate limiting GraphQL calls
+Meteor supports rate limiting for DDP calls. This means you can rate limit DDP-Apollo as well!
+
+```sh
+meteor add ddp-rate-limiter
+```
+
+```js
+import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+
+// Define a rule that matches graphql method calls.
+const graphQLMethodCalls = {
+  type: 'method',
+  name: '__graphql'
+};
+
+// Add the rule, allowing up to 5 messages every 1000 milliseconds.
+DDPRateLimiter.addRule(graphQLMethodCalls, 5, 1000);
+```
+
+See [DDP Rate Limit documentation](https://docs.meteor.com/api/methods.html#ddpratelimiter).
+
 ## Apollo Optics
 > IMPORTANT: Optics is being replaced by [Engine](https://www.apollographql.com/engine/). Optics is still operational, but Engine is it's official successor. At the time of writing Engine only works as an HTTP middleware, meaning it has no support for GraphQL Subscriptions or DDP-Apollo.
 
