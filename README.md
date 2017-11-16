@@ -6,9 +6,16 @@ DDP-Apollo has been created to leverage the power of DDP for GraphQL queries and
 - Doesn’t require an HTTP server to be setup, like with express, koa or hapi
 - Supports GraphQL Subscriptions out-of-the-box
 - Doesn’t require an extra websocket for GraphQL Subscriptions, because DDP already has a websocket
-- Easy to combine with other Apollo Links
 - Already have a server setup? Use `DDPSubscriptionLink` stand-alone for just Subscriptions support. [Read more](#using-ddp-only-for-subscriptions)
-- Works with Apollo Dev Tools, just like any other Apollo link
+
+Because it's "just another Apollo Link":
+- It works with [Apollo Dev Tools](https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm)
+- It's easy to combine with other Apollo Links
+- It's front-end agnostic
+
+Checkout this [starter kit](https://github.com/jamiter/meteor-starter-kit) to see Meteor, Apollo, DDP and React all work together.
+
+*Note: DDP-Apollo works with all front-ends, not just React*
 
 [![Build Status](https://travis-ci.org/Swydo/ddp-apollo.svg?branch=master)](https://travis-ci.org/Swydo/ddp-apollo)
 [![Greenkeeper badge](https://badges.greenkeeper.io/Swydo/ddp-apollo.svg)](https://greenkeeper.io/)
