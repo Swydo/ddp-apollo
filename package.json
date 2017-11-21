@@ -16,7 +16,7 @@
     "eslint-import-resolver-meteor": "^0.4.0",
     "eslint-plugin-import": "2.8.0",
     "graphql": "0.11.7",
-    "graphql-subscriptions": "0.5.4",
+    "graphql-subscriptions": "0.5.5",
     "graphql-tag": "2.5.0",
     "graphql-tools": "2.8.0",
     "optics-agent": "1.1.9",
