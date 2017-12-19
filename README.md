@@ -149,7 +149,8 @@ See [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptio
 If you already have an HTTP server setup and you are looking to support GraphQL Subscriptions in your Meteor application, you can use the `DDPSubscriptionLink` stand-alone.
 
 ```javascript
-import { ApolloClient, split } from 'apollo-client';
+import { ApolloClient } from 'apollo-client';
+import { split } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import { DDPSubscriptionLink, isSubscription } from 'meteor/swydo:ddp-apollo';
 import { InMemoryCache } from 'apollo-cache-inmemory';
