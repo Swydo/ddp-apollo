@@ -30,6 +30,7 @@ Checkout this [starter kit](https://github.com/jamiter/meteor-starter-kit) to se
   - [Options](#options)
 - [Server setup](#server-setup)
   - [Options](#options-1)
+  - [Custom context](#custom-context)
 - [GraphQL subscriptions](#graphql-subscriptions)
   - [Setting up PubSub](#setting-up-pubsub)
   - [Using DDP only for subscriptions](#using-ddp-only-for-subscriptions)
