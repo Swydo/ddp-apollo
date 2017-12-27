@@ -91,9 +91,28 @@ setup({
 
 ### Options
 - `schema`: The GraphQL schema. Default `undefined`. Required.
+- `context`: A customer context. Either an object or a function returning an object. Optional.
 - `method`: The name of the method. Default `__graphql`.
 - `publication`: The name of the publication. Default `__graphql-subscriptions`.
 - `disableOptics`: Disable Apollo Optics monitoring. Default `undefined`. See [Apollo Optics](#apollo-optics).
+
+### Custom context
+To modify or overrule the default context, you can pass a `context` object or function to the setup:
+
+```js
+// As an object:
+const context = {
+  foo: 'bar'
+}
+
+// As a function, returning an object:
+const context = (currentContext) => ({ ...currentContext, foo: 'bar' });
+
+setup({
+  schema,
+  context,
+});
+```
 
 ## GraphQL subscriptions
 Subscription support is baked into this package. Simply add the subscriptions to your schema and resolvers and everything works.
