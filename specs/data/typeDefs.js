@@ -6,9 +6,4 @@ type Query {
 type Subscription {
   fooSub: String
 }
-
-schema {
-  query: Query
-  subscription: Subscription
-}
 `];
