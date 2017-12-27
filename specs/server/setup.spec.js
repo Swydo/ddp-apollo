@@ -63,6 +63,142 @@ describe('#setup', function () {
     });
   });
 
+  describe('context', function () {
+    it('accepts an object', function (done) {
+      const schema = makeExecutableSchema({
+        resolvers: {
+          Query: {
+            foo: (_, __, { foo, bar }) => [foo, bar].join(':'),
+          },
+        },
+        typeDefs,
+      });
+
+      const context = {
+        foo: 'baz',
+        bar: 'qux',
+      };
+
+      setup({ schema, context });
+
+      const request = {
+        query: gql`{ foo }`,
+      };
+
+      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
+        try {
+          chai.expect(data.foo).to.equal('baz:qux');
+          done(err);
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    it('accepts a function', function (done) {
+      const schema = makeExecutableSchema({
+        resolvers: {
+          Query: {
+            foo: (_, __, { foo, bar }) => [foo, bar].join(':'),
+          },
+        },
+        typeDefs,
+      });
+
+      const context = () => ({
+        foo: 'baz',
+        bar: 'qux',
+      });
+
+      setup({ schema, context });
+
+      const request = {
+        query: gql`{ foo }`,
+      };
+
+      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
+        try {
+          chai.expect(data.foo).to.equal('baz:qux');
+          done(err);
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
+    it('leaves the original values alone', function (done) {
+      const schema = makeExecutableSchema({
+        resolvers: {
+          Query: {
+            foo: (_, __, context) => {
+              chai.expect(Object.getOwnPropertyNames(context)).to.include('userId');
+              chai.expect(Object.getOwnPropertyNames(context)).to.include('foo');
+              done();
+            },
+          },
+        },
+        typeDefs,
+      });
+
+      const context = { foo: 'baz' };
+
+      setup({ schema, context });
+
+      const request = { query: gql`{ foo }` };
+
+      Meteor.apply(DEFAULT_METHOD, [request], () => {});
+    });
+  });
+
+  describe('createContext', function () {
+    it('is called with the current context', function (done) {
+      const request = {
+        query: gql`{ foo }`,
+      };
+
+      const schema = makeExecutableSchema({
+        resolvers,
+        typeDefs,
+      });
+
+      function createContext(currentContext) {
+        chai.expect(Object.getOwnPropertyNames(currentContext)).to.include('userId');
+        done();
+      }
+
+      createGraphQLMethod(schema, { createContext })(request).catch(done);
+    });
+
+    it('returns a modified context', function (done) {
+      const request = {
+        query: gql`{ foo }`,
+      };
+
+      const schema = makeExecutableSchema({
+        resolvers: {
+          Query: {
+            foo: (_, __, { foo, bar }) => [foo, bar].join(':'),
+          },
+        },
+        typeDefs,
+      });
+
+      function createContext() {
+        return {
+          foo: 'baz',
+          bar: 'qux',
+        };
+      }
+
+      createGraphQLMethod(schema, { createContext })(request)
+        .then(({ data }) => {
+          chai.expect(data.foo).to.equal('baz:qux');
+          done();
+        })
+        .catch(done);
+    });
+  });
+
   describe('optics', function () {
     it('should auto-detect if optics should be added', function (done) {
       const schema = makeExecutableSchema({
