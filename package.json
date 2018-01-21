@@ -20,7 +20,7 @@
     "graphql-tag": "2.6.1",
     "graphql-tools": "2.18.0",
     "optics-agent": "1.1.9",
-    "sinon": "4.1.6"
+    "sinon": "4.2.0"
   },
   "scripts": {
     "doctoc": "doctoc ./README.md",
