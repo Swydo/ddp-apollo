@@ -23,7 +23,7 @@ Package.onTest(function test(api) {
   api.use(packages);
 
   api.use([
-    'meteortesting:mocha'
+    'meteortesting:mocha',
   ]);
 
   api.mainModule('specs/client.spec.js', 'client');
