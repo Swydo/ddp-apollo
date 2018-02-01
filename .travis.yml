@@ -1,12 +1,24 @@
+sudo: required
 language: node_js
 node_js:
-  - "4"
-
+  - "8"
+addons:
+  chrome: stable
+cache:
+  directories:
+    - ~/.npm
+    - "node_modules"
 before_install:
   - "curl https://install.meteor.com | /bin/sh"
   - export PATH="$HOME/.meteor:$PATH"
   - meteor --version
-
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 script:
-  - "npm run eslint -s"
-  - "npm test -s"
+  - npm run eslint -s
+  - meteor create --bare test
+  - cd test
+  - meteor npm i --save selenium-webdriver@3 chromedriver
+  - METEOR_PACKAGE_DIRS="../" TEST_BROWSER_DRIVER=chrome meteor --once test-packages --driver-package meteortesting:mocha ../

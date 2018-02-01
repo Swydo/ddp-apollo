@@ -6,7 +6,7 @@ var packages = [
 
 Package.describe({
   name: 'swydo:ddp-apollo',
-  version: '1.1.0',
+  version: '1.2.0',
   summary: 'DDP link and server for Apollo',
   git: 'https://github.com/swydo/ddp-apollo',
   documentation: 'README.md',
@@ -23,10 +23,7 @@ Package.onTest(function test(api) {
   api.use(packages);
 
   api.use([
-    'coffeescript@1.12.7_3',
-    'practicalmeteor:mocha@2.4.5_6',
-    'dispatch:phantomjs-tests@=0.0.5',
-    'dispatch:mocha-phantomjs',
+    'meteortesting:mocha',
   ]);
 
   api.mainModule('specs/client.spec.js', 'client');

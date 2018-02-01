@@ -35,7 +35,6 @@ Checkout this [starter kit](https://github.com/jamiter/meteor-starter-kit) to se
   - [Setting up PubSub](#setting-up-pubsub)
   - [Using DDP only for subscriptions](#using-ddp-only-for-subscriptions)
 - [Rate limiting GraphQL calls](#rate-limiting-graphql-calls)
-- [Apollo Optics](#apollo-optics)
 - [Sponsor](#sponsor)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -78,7 +77,7 @@ new DDPLink({
 ```
 
 ## Server setup
-The server will add a method that will be used by the DDP network interface.
+The server will add a method that will be used by the DDP Apollo Link.
 
 ```javascript
 import { schema } from './path/to/your/executable/schema';
@@ -95,7 +94,6 @@ setup({
 - `context`: A customer context. Either an object or a function returning an object. Optional.
 - `method`: The name of the method. Default `__graphql`.
 - `publication`: The name of the publication. Default `__graphql-subscriptions`.
-- `disableOptics`: Disable Apollo Optics monitoring. Default `undefined`. See [Apollo Optics](#apollo-optics).
 
 ### Custom context
 To modify or overrule the default context, you can pass a `context` object or function to the setup:
@@ -211,21 +209,6 @@ DDPRateLimiter.addRule(graphQLMethodCalls, 5, 1000);
 ```
 
 See [DDP Rate Limit documentation](https://docs.meteor.com/api/methods.html#ddpratelimiter).
-
-## Apollo Optics
-> IMPORTANT: Optics is being replaced by [Engine](https://www.apollographql.com/engine/). Optics is still operational, but Engine is it's official successor. At the time of writing Engine only works as an HTTP middleware, meaning it has no support for GraphQL Subscriptions or DDP-Apollo.
-
-To use Optics, you must first instrument the schema before passing it to the setup function:
-
-```javascript
-import OpticsAgent from 'optics-agent';
-
-OpticsAgent.instrumentSchema(schema);
-```
-
-That's it! Now `ddp-apollo` will take care of the rest.
-
-See the [Optics README](https://github.com/apollographql/optics-agent-js/blob/master/README.md) for all setup details and options.
 
 ## Sponsor
 [![Swydo](http://assets.swydo.com/img/s-wydo-logo.228x100.png)](https://swy.do)
