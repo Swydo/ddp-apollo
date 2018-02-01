@@ -77,7 +77,7 @@ new DDPLink({
 ```
 
 ## Server setup
-The server will add a method that will be used by the DDP network interface.
+The server will add a method that will be used by the DDP Apollo Link.
 
 ```javascript
 import { schema } from './path/to/your/executable/schema';
