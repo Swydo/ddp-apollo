@@ -119,6 +119,39 @@ describe('#setup', function () {
       });
     });
 
+    it('accepts an async function', function (done) {
+      const schema = makeExecutableSchema({
+        resolvers: {
+          Query: {
+            foo: (_, __, { foo, bar }) => [foo, bar].join(':'),
+          },
+        },
+        typeDefs,
+      });
+
+      const getQux = async () => 'qux';
+
+      const context = async () => ({
+        foo: 'baz',
+        bar: await getQux(),
+      });
+
+      setup({ schema, context });
+
+      const request = {
+        query: gql`{ foo }`,
+      };
+
+      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
+        try {
+          chai.expect(data.foo).to.equal('baz:qux');
+          done(err);
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
+
     it('leaves the original values alone', function (done) {
       const schema = makeExecutableSchema({
         resolvers: {
