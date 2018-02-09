@@ -107,6 +107,9 @@ const context = {
 // As a function, returning an object:
 const context = (currentContext) => ({ ...currentContext, foo: 'bar' });
 
+// As an async function, returning a promise with an object
+const context = async (currentContext) => ({ ...currentContext, foo: await doAsyncStuff() });
+
 setup({
   schema,
   context,
