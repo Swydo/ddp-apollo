@@ -120,18 +120,13 @@ setup({
 Subscription support is baked into this package. Simply add the subscriptions to your schema and resolvers and everything works.
 
 ```graphql
-// schema.graphql
+# schema.graphql
 type Query {
   name: String
 }
 
 type Subscription {
   message: String
-}
-
-schema {
-  query: Query
-  subscription: Subscription
 }
 ```
 
