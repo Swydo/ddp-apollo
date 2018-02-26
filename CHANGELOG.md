@@ -1,3 +1,25 @@
+## 1.3.0
+
+- Add ability to pass a client context to the server context via `ddpContext` key.
+  ```js
+  // client
+  apolloClient.query({
+      query,
+      context: { ddpContext: { foo: 'bar' } }
+  });
+
+  // server
+  const context = (previousContext, ddpContext) => ({
+      ...previousContext,
+      foo: ddpContext.foo
+  });
+
+  setup({
+      schema,
+      context,
+  });
+  ```
+
 ## 1.2.0
 
 - Remove support for Optics, because as of 2018-01-31 it's no longer operational
