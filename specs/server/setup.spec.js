@@ -178,9 +178,7 @@ describe('#setup', function () {
 
   describe('createContext', function () {
     it('is called with the current context', function (done) {
-      const request = {
-        query: gql`{ foo }`,
-      };
+      const request = { query: gql`{ foo }` };
 
       const schema = makeExecutableSchema({
         resolvers,
@@ -196,9 +194,7 @@ describe('#setup', function () {
     });
 
     it('returns a modified context', function (done) {
-      const request = {
-        query: gql`{ foo }`,
-      };
+      const request = { query: gql`{ foo }` };
 
       const schema = makeExecutableSchema({
         resolvers: {
@@ -209,16 +205,31 @@ describe('#setup', function () {
         typeDefs,
       });
 
-      function createContext() {
-        return {
-          foo: 'baz',
-          bar: 'qux',
-        };
-      }
+      const createContext = () => ({ foo: 'baz', bar: 'qux' });
 
       createGraphQLMethod(schema, { createContext })(request)
         .then(({ data }) => {
           chai.expect(data.foo).to.equal('baz:qux');
+          done();
+        })
+        .catch(done);
+    });
+
+    it('accepts a ddp context param', function (done) {
+      const request = { query: gql`{ foo }` };
+
+      const schema = makeExecutableSchema({
+        resolvers: {
+          Query: { foo: (_, __, { foo }) => foo },
+        },
+        typeDefs,
+      });
+
+      const createContext = (_, clientContext) => clientContext;
+
+      createGraphQLMethod(schema, { createContext })(request, { foo: 'bar' })
+        .then(({ data }) => {
+          chai.expect(data.foo).to.equal('bar');
           done();
         })
         .catch(done);

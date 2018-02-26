@@ -26,6 +26,15 @@ describe('ApolloClient with DDP link', function () {
       chai.expect(data.foo).to.be.a('string');
     });
 
+    it('should pass and retrieve a ddp context', async function () {
+      const { data } = await this.client.query({
+        query: gql`query { ddpContextValue }`,
+        context: { ddpContext: 'ddpFoo' },
+      });
+
+      chai.expect(data.ddpContextValue).to.equal('ddpFoo');
+    });
+
     it('returns subscription data', function (done) {
       const message = { fooSub: 'bar' };
       const observer = this.client.subscribe({ query: gql`subscription { fooSub }` });

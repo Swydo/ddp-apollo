@@ -23,7 +23,14 @@ Meteor.methods({
       typeDefs,
     });
 
-    setup({ schema });
+    setup({
+      schema,
+      // Add the client context to the previous context for testing
+      context: (previousContext, clientContext) => ({
+        ...previousContext,
+        ddpContext: clientContext,
+      }),
+    });
   },
 
   'ddp-apollo/publish': function publish(topic, data) {
