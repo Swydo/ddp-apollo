@@ -214,5 +214,25 @@ describe('#setup', function () {
         })
         .catch(done);
     });
+
+    it('accepts a ddp context param', function (done) {
+      const request = { query: gql`{ foo }` };
+
+      const schema = makeExecutableSchema({
+        resolvers: {
+          Query: { foo: (_, __, { foo }) => foo },
+        },
+        typeDefs,
+      });
+
+      const createContext = (_, clientContext) => clientContext;
+
+      createGraphQLMethod(schema, { createContext })(request, { foo: 'bar' })
+        .then(({ data }) => {
+          chai.expect(data.foo).to.equal('bar');
+          done();
+        })
+        .catch(done);
+    });
   });
 });
