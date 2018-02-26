@@ -178,9 +178,7 @@ describe('#setup', function () {
 
   describe('createContext', function () {
     it('is called with the current context', function (done) {
-      const request = {
-        query: gql`{ foo }`,
-      };
+      const request = { query: gql`{ foo }` };
 
       const schema = makeExecutableSchema({
         resolvers,
@@ -196,9 +194,7 @@ describe('#setup', function () {
     });
 
     it('returns a modified context', function (done) {
-      const request = {
-        query: gql`{ foo }`,
-      };
+      const request = { query: gql`{ foo }` };
 
       const schema = makeExecutableSchema({
         resolvers: {
@@ -209,12 +205,7 @@ describe('#setup', function () {
         typeDefs,
       });
 
-      function createContext() {
-        return {
-          foo: 'baz',
-          bar: 'qux',
-        };
-      }
+      const createContext = () => ({ foo: 'baz', bar: 'qux' });
 
       createGraphQLMethod(schema, { createContext })(request)
         .then(({ data }) => {
