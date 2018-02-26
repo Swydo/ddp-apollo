@@ -3,6 +3,7 @@ DDP-Apollo has been created to leverage the power of DDP for GraphQL queries and
 
 - DDP-Apollo is one of the easiest ways to get GraphQL running for Meteor developers
 - Works with the Meteor accounts packages out of the box, giving a userId in your resolvers
+- Method calls and collection hooks will have `this.userId` when called within your resolvers
 - Doesn’t require an HTTP server to be setup, like with express, koa or hapi
 - Supports GraphQL Subscriptions out-of-the-box
 - Doesn’t require an extra websocket for GraphQL Subscriptions, because DDP already has a websocket
