@@ -140,7 +140,7 @@ meteor npm install --save graphql-subscriptions
 import { PubSub } from 'graphql-subscriptions';
 
 // The pubsub mechanism of your choice, for instance:
-// - PubSub from graphql-subscriptions (not recommended for production)
+// - PubSub from graphql-subscriptions (in-memory, so not recommended for production)
 // - RedisPubSub from graphql-redis-subscriptions
 // - MQTTPubSub from graphql-mqtt-subscriptions
 const pubsub = new PubSub();
@@ -160,7 +160,7 @@ export const resolvers = {
 pubsub.publish('SOMETHING_CHANGED', { message: 'hello world' });
 ```
 
-See [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions) package for more setup details and other pubsub mechanisms.
+See [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions) package for more setup details and other pubsub mechanisms. It also explains why the default `PubSub` isn't meant for production.
 
 ### Using DDP only for subscriptions
 If you already have an HTTP server setup and you are looking to support GraphQL Subscriptions in your Meteor application, you can use the `DDPSubscriptionLink` stand-alone.
