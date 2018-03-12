@@ -19,7 +19,7 @@
     "graphql-subscriptions": "0.5.8",
     "graphql-tag": "2.8.0",
     "graphql-tools": "2.21.0",
-    "sinon": "4.4.2"
+    "sinon": "4.4.3"
   },
   "scripts": {
     "doctoc": "doctoc ./README.md",
