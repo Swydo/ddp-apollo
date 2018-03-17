@@ -18,7 +18,7 @@
     "graphql": "0.13.1",
     "graphql-subscriptions": "0.5.8",
     "graphql-tag": "2.8.0",
-    "graphql-tools": "2.23.0",
+    "graphql-tools": "2.23.1",
     "sinon": "4.4.6"
   },
   "scripts": {
