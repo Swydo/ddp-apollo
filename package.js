@@ -3,7 +3,6 @@ var packages = [
   'ecmascript',
   'promise',
   'webapp',
-  'accounts-base',
 ];
 
 Package.describe({
@@ -26,6 +25,7 @@ Package.onTest(function test(api) {
 
   api.use([
     'meteortesting:mocha',
+    'accounts-base',
   ]);
 
   api.mainModule('specs/client.spec.js', 'client');
