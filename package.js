@@ -2,6 +2,8 @@
 var packages = [
   'ecmascript',
   'promise',
+  'webapp',
+  'accounts-base',
 ];
 
 Package.describe({
