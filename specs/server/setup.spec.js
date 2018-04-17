@@ -190,7 +190,7 @@ describe('#setup', function () {
         done();
       }
 
-      createGraphQLMethod(schema, { createContext })(request).catch(done);
+      createGraphQLMethod({ schema, createContext })(request).catch(done);
     });
 
     it('returns a modified context', function (done) {
@@ -207,7 +207,7 @@ describe('#setup', function () {
 
       const createContext = () => ({ foo: 'baz', bar: 'qux' });
 
-      createGraphQLMethod(schema, { createContext })(request)
+      createGraphQLMethod({ schema, createContext })(request)
         .then(({ data }) => {
           chai.expect(data.foo).to.equal('baz:qux');
           done();
@@ -227,7 +227,7 @@ describe('#setup', function () {
 
       const createContext = (_, clientContext) => clientContext;
 
-      createGraphQLMethod(schema, { createContext })(request, { foo: 'bar' })
+      createGraphQLMethod({ schema, createContext })(request, { foo: 'bar' })
         .then(({ data }) => {
           chai.expect(data.foo).to.equal('bar');
           done();

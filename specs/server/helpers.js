@@ -23,13 +23,15 @@ Meteor.methods({
       typeDefs,
     });
 
+    // Add the client context to the previous context for testing
+    const context = (previousContext, clientContext) => ({
+      ...previousContext,
+      ddpContext: clientContext,
+    });
+
     setup({
       schema,
-      // Add the client context to the previous context for testing
-      context: (previousContext, clientContext) => ({
-        ...previousContext,
-        ddpContext: clientContext,
-      }),
+      context,
     });
   },
 
