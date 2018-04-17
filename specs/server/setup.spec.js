@@ -185,12 +185,12 @@ describe('#setup', function () {
         typeDefs,
       });
 
-      function createContext(currentContext) {
+      function context(currentContext) {
         chai.expect(Object.getOwnPropertyNames(currentContext)).to.include('userId');
         done();
       }
 
-      createGraphQLMethod({ schema, createContext })(request).catch(done);
+      createGraphQLMethod({ schema, context })(request).catch(done);
     });
 
     it('returns a modified context', function (done) {
@@ -205,9 +205,9 @@ describe('#setup', function () {
         typeDefs,
       });
 
-      const createContext = () => ({ foo: 'baz', bar: 'qux' });
+      const context = () => ({ foo: 'baz', bar: 'qux' });
 
-      createGraphQLMethod({ schema, createContext })(request)
+      createGraphQLMethod({ schema, context })(request)
         .then(({ data }) => {
           chai.expect(data.foo).to.equal('baz:qux');
           done();
@@ -225,9 +225,9 @@ describe('#setup', function () {
         typeDefs,
       });
 
-      const createContext = (_, clientContext) => clientContext;
+      const context = (_, clientContext) => clientContext;
 
-      createGraphQLMethod({ schema, createContext })(request, { foo: 'bar' })
+      createGraphQLMethod({ schema, context })(request, { foo: 'bar' })
         .then(({ data }) => {
           chai.expect(data.foo).to.equal('bar');
           done();
