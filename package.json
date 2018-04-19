@@ -17,7 +17,7 @@
     "eslint-plugin-import": "2.11.0",
     "graphql": "0.13.2",
     "graphql-subscriptions": "0.5.8",
-    "graphql-tag": "2.8.0",
+    "graphql-tag": "2.9.0",
     "graphql-tools": "2.24.0",
     "sinon": "5.0.0"
   },
