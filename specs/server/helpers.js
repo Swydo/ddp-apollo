@@ -1,7 +1,6 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { pubsub } from '../data/pubsub';
-import { setup } from '../../lib/server/setup';
-import { createHttpServer } from '../../lib/server/createHttpServer';
+import { setup, setupHttpEndpoint } from '../../lib/server/setup';
 import {
   DEFAULT_METHOD,
   DEFAULT_PUBLICATION,
@@ -35,7 +34,7 @@ Meteor.methods({
       context,
     });
 
-    createHttpServer({
+    setupHttpEndpoint({
       schema,
       context,
     });
