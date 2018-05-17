@@ -14,7 +14,7 @@
     "eslint": "^4.18.0",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-import-resolver-meteor": "^0.4.0",
-    "eslint-plugin-import": "2.11.0",
+    "eslint-plugin-import": "2.12.0",
     "graphql": "0.13.2",
     "graphql-subscriptions": "0.5.8",
     "graphql-tag": "2.9.2",
