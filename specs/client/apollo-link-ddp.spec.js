@@ -56,6 +56,56 @@ describe('DDPMethodLink', function () {
     });
   });
 
+  describe('when disconnected', function () {
+    beforeEach(function () {
+      Meteor.disconnect();
+    });
+
+    afterEach(function () {
+      // Reconnect in case the test fail before being able to do so
+      Meteor.reconnect();
+    });
+
+    it('retries automatically', function (done) {
+      const operation = {
+        query: gql`query { foo }`,
+      };
+
+      this.link.request(operation).subscribe({
+        next: ({ data }) => {
+          try {
+            chai.expect(data.foo).to.be.a('string');
+            done();
+          } catch (e) {
+            done(e);
+          }
+        },
+        error: done,
+      });
+
+      Meteor.reconnect();
+    });
+
+    it('can be configured to prevent retrying automatically', function (done) {
+      this.link = new DDPMethodLink({ ddpRetry: false });
+
+      const operation = {
+        query: gql`query { foo }`,
+      };
+
+      this.link.request(operation).subscribe({
+        error: (err) => {
+          try {
+            chai.expect(err.message).to.contain('noRetry');
+            done();
+          } catch (e) {
+            done(e);
+          }
+        },
+      });
+
+      Meteor.reconnect();
+    });
   });
 });
 
