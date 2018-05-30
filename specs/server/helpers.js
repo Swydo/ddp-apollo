@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { pubsub } from '../data/pubsub';
-import { setup } from '../../lib/server/setup';
+import { setup, setupHttpEndpoint } from '../../lib/server/setup';
 import {
   DEFAULT_METHOD,
   DEFAULT_PUBLICATION,
@@ -23,13 +23,20 @@ Meteor.methods({
       typeDefs,
     });
 
+    // Add the client context to the previous context for testing
+    const context = (previousContext, clientContext) => ({
+      ...previousContext,
+      ddpContext: clientContext,
+    });
+
     setup({
       schema,
-      // Add the client context to the previous context for testing
-      context: (previousContext, clientContext) => ({
-        ...previousContext,
-        ddpContext: clientContext,
-      }),
+      context,
+    });
+
+    setupHttpEndpoint({
+      schema,
+      context,
     });
   },
 
