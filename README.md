@@ -69,6 +69,7 @@ export const client = new ApolloClient ({
 - `connection`: The DDP connection to use. Default `Meteor.connection`.
 - `method`: The name of the method. Default `__graphql`.
 - `publication`: The name of the publication. Default `__graphql-subscriptions`.
+- `ddpRetry`: Retry failed DDP method calls. Default `true`. Switch off and use [apollo-link-retry](https://www.npmjs.com/package/apollo-link-retry) for more control.
 
 ```javascript
 // Pass options to the DDPLink constructor
