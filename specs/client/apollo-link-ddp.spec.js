@@ -16,8 +16,10 @@ function callPromise(name, ...args) {
 }
 
 describe('DDPMethodLink', function () {
-  beforeEach(function () {
+  beforeEach(function (done) {
     this.link = new DDPMethodLink();
+
+    Meteor.call('ddp-apollo/setup', done);
   });
 
   it('should add a default method', function () {
@@ -32,6 +34,28 @@ describe('DDPMethodLink', function () {
 
       chai.expect(this.link.request(operation)).to.be.instanceof(Observable);
     });
+
+    it('returns data', function (done) {
+      const operation = {
+        query: gql`query { foo }`,
+      };
+
+      const observer = this.link.request(operation);
+
+      observer.subscribe({
+        next: ({ data }) => {
+          try {
+            chai.expect(data.foo).to.be.a('string');
+            done();
+          } catch (e) {
+            done(e);
+          }
+        },
+        error: done,
+      });
+    });
+  });
+
   });
 });
 
