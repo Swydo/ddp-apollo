@@ -1,5 +1,5 @@
 # DDP-Apollo
-DDP-Apollo has been created to leverage the power of DDP for GraphQL queries and subscriptions. For Meteor developers there is no real need for an HTTP server or extra websocket connection, because DDP offers all we need and has been well tested over time.
+DDP-Apollo leverages the power of DDP for GraphQL queries and subscriptions. Meteor developers do not need an HTTP server or extra websocket connection, because DDP offers all we need and has been well tested over time.
 
 - DDP-Apollo is one of the easiest ways to get GraphQL running for Meteor developers
 - Works with the Meteor accounts packages out of the box, giving a userId in your resolvers
@@ -211,6 +211,13 @@ See [DDP Rate Limit documentation](https://docs.meteor.com/api/methods.html#ddpr
 
 ## HTTP support
 There can be reasons to use HTTP instead of a Meteor method. There is support for it built in, but it requires a little different setup than the DDP version.
+
+### Installation
+We'll need the HTTP link from Apollo and `body-parser` on top of the default dependencies:
+
+```
+meteor npm install apollo-link-http body-parser
+```
 
 ### Client setup
 ```js
