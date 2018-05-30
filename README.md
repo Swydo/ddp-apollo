@@ -92,7 +92,7 @@ setup({
 
 ### Options
 - `schema`: The GraphQL schema. Default `undefined`. Required.
-- `context`: A customer context. Either an object or a function returning an object. Optional.
+- `context`: A custom context. Either an object or a function returning an object. Optional.
 - `method`: The name of the method. Default `__graphql`.
 - `publication`: The name of the publication. Default `__graphql-subscriptions`.
 
@@ -208,6 +208,44 @@ DDPRateLimiter.addRule(graphQLMethodCalls, 5, 1000);
 ```
 
 See [DDP Rate Limit documentation](https://docs.meteor.com/api/methods.html#ddpratelimiter).
+
+## HTTP support
+There can be reasons to use HTTP instead of a Meteor method. There is support for it build in, but it requires a little different setup than the DDP version.
+
+### Client setup
+```js
+import ApolloClient from 'apollo-client';
+// Use the MeteorLink instead of the DDPLink
+// It uses HTTP for queries and Meteor subscriptions for GraphQL subscriptions
+import { MeteorLink } from 'meteor/swydo:ddp-apollo';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
+export const client = new ApolloClient ({
+  link: new MeteorLink(),
+  cache: new InMemoryCache()
+});
+```
+
+### Server setup
+```js
+import { schema } from './path/to/your/executable/schema';
+import { setupHttpEndpoint, createGraphQLPublication } from 'meteor/swydo:ddp-apollo';
+
+setupHttpEndpoint({
+  schema,
+  ...otherOptions,
+});
+
+// For subscription support (not required)
+createGraphQLPublication({ schema });
+```
+
+#### Options
+- `schema`: The GraphQL schema. Default `undefined`. Required.
+- `context`: A custom context. Either an object or a function returning an object. Optional.
+- `path`: The name of the HTTP path. Default `/graphql`.
+- `engine`: An Engine instance, in case you want monitoring on your HTTP endpoint. Optional.
+- `jsonParser`: Custom JSON parser. Loads `body-parser` from your `node_modules` by default and uses `.json()`.
 
 ## Sponsor
 [![Swydo](http://assets.swydo.com/img/s-wydo-logo.228x100.png)](https://swy.do)
