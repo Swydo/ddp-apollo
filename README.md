@@ -36,6 +36,11 @@ Checkout this [starter kit](https://github.com/jamiter/meteor-starter-kit) to se
   - [Setting up PubSub](#setting-up-pubsub)
   - [Using DDP only for subscriptions](#using-ddp-only-for-subscriptions)
 - [Rate limiting GraphQL calls](#rate-limiting-graphql-calls)
+- [HTTP support](#http-support)
+  - [Installation](#installation-1)
+  - [Client setup](#client-setup-1)
+  - [Server setup](#server-setup-1)
+    - [Options](#options-2)
 - [Sponsor](#sponsor)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
