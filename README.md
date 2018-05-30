@@ -210,7 +210,7 @@ DDPRateLimiter.addRule(graphQLMethodCalls, 5, 1000);
 See [DDP Rate Limit documentation](https://docs.meteor.com/api/methods.html#ddpratelimiter).
 
 ## HTTP support
-There can be reasons to use HTTP instead of a Meteor method. There is support for it build in, but it requires a little different setup than the DDP version.
+There can be reasons to use HTTP instead of a Meteor method. There is support for it built in, but it requires a little different setup than the DDP version.
 
 ### Client setup
 ```js
