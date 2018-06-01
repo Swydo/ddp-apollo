@@ -3,17 +3,11 @@
 import chai from 'chai';
 import gql from 'graphql-tag';
 import { ApolloLink, Observable } from 'apollo-link';
+import { loginWithUserId } from './helpers/login';
+import { callPromise } from './helpers/callPromise';
 import { getDDPLink, DDPMethodLink, DDPSubscriptionLink } from '../../lib/client/apollo-link-ddp';
 import { DEFAULT_METHOD, DEFAULT_PUBLICATION } from '../../lib/common/defaults';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
-
-function callPromise(name, ...args) {
-  return new Promise((resolve, reject) => {
-    Meteor.apply(name, args, (err, data) => {
-      err ? reject(err) : resolve(data);
-    });
-  });
-}
 
 describe('DDPMethodLink', function () {
   beforeEach(function (done) {
@@ -46,6 +40,40 @@ describe('DDPMethodLink', function () {
         next: ({ data }) => {
           try {
             chai.expect(data.foo).to.be.a('string');
+            done();
+          } catch (e) {
+            done(e);
+          }
+        },
+        error: done,
+      });
+    });
+  });
+
+  describe('when authenticated', function () {
+    before(async function () {
+      const userId = await callPromise('createTestUser');
+      chai.expect(userId).to.be.a('string');
+      this.userId = userId;
+      await loginWithUserId(userId);
+    });
+
+    after(function (done) {
+      Meteor.logout((err) => { err ? done(err) : done(); });
+    });
+
+    it('returns the userId', function (done) {
+      const operation = {
+        query: gql`query { userId }`,
+      };
+
+      const observer = this.link.request(operation);
+
+      observer.subscribe({
+        next: ({ data }) => {
+          try {
+            chai.expect(data.userId).to.be.a('string');
+            chai.expect(data.userId).to.equal(this.userId);
             done();
           } catch (e) {
             done(e);

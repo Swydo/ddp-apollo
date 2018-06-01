@@ -258,6 +258,7 @@ createGraphQLPublication({ schema });
 - `context`: A custom context. Either an object or a function returning an object. Optional.
 - `path`: The name of the HTTP path. Default `/graphql`.
 - `engine`: An Engine instance, in case you want monitoring on your HTTP endpoint. Optional.
+- `authMiddleware`: Middleware to get a userId and set it on the request. Default `meteorAuthMiddleware`, using a login token.
 - `jsonParser`: Custom JSON parser. Loads `body-parser` from your `node_modules` by default and uses `.json()`.
 
 ## Sponsor
