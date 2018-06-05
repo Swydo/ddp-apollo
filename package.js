@@ -3,6 +3,7 @@ var packages = [
   'ecmascript',
   'promise',
   'webapp',
+  'random',
 ];
 
 Package.describe({

@@ -52,6 +52,17 @@ describe('MeteorLink', function () {
         chai.expect(data.userId).to.be.a('string');
         chai.expect(data.userId).to.equal(this.userId);
       });
+
+      it('returns the meteorUserId', async function () {
+        const operation = {
+          query: gql`query { meteorUserId }`,
+        };
+
+        const { data } = await this.client.query(operation);
+
+        chai.expect(data.meteorUserId).to.be.a('string');
+        chai.expect(data.meteorUserId).to.equal(this.userId);
+      });
     });
   });
 });
