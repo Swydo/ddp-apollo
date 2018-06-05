@@ -82,6 +82,27 @@ describe('DDPMethodLink', function () {
         error: done,
       });
     });
+
+    it('returns the meteorUserId', function (done) {
+      const operation = {
+        query: gql`query { meteorUserId }`,
+      };
+
+      const observer = this.link.request(operation);
+
+      observer.subscribe({
+        next: ({ data }) => {
+          try {
+            chai.expect(data.meteorUserId).to.be.a('string');
+            chai.expect(data.meteorUserId).to.equal(this.userId);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        },
+        error: done,
+      });
+    });
   });
 
   describe('when disconnected', function () {
