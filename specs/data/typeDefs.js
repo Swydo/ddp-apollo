@@ -4,6 +4,7 @@ type Query {
   userId: String
   meteorUserId: String
   ddpContextValue: String
+  somethingBad: String
 }
 
 type Subscription {

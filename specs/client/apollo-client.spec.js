@@ -35,6 +35,20 @@ describe('ApolloClient with DDP link', function () {
       chai.expect(data.ddpContextValue).to.equal('ddpFoo');
     });
 
+    it('handles errors', async function () {
+      try {
+        await this.client.query({
+          query: gql`query { somethingBad }`,
+        });
+        chai.expect(false, 'this should not happen').to.equal(true);
+      } catch (err) {
+        chai.expect(err.message).to.equal('GraphQL error: SOMETHING_BAD');
+        chai.expect(err.graphQLErrors[0].message).to.equal('SOMETHING_BAD');
+      }
+    });
+  });
+
+  describe('#subscribe', function () {
     it('returns subscription data', function (done) {
       const message = { fooSub: 'bar' };
       const observer = this.client.subscribe({ query: gql`subscription { fooSub }` });
