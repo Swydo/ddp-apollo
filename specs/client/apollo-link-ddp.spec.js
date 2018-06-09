@@ -6,7 +6,7 @@ import { ApolloLink, Observable } from 'apollo-link';
 import { loginWithUserId } from './helpers/login';
 import { callPromise } from './helpers/callPromise';
 import { getDDPLink, DDPMethodLink, DDPSubscriptionLink } from '../../lib/client/apollo-link-ddp';
-import { DEFAULT_METHOD, DEFAULT_PUBLICATION } from '../../lib/common/defaults';
+import { DEFAULT_METHOD, DEFAULT_PUBLICATION, GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE } from '../../lib/common/defaults';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
 describe('DDPMethodLink', function () {
@@ -223,6 +223,39 @@ describe('DDPSubscriptionLink', function () {
             done(e);
           }
         }, 100);
+      });
+    });
+
+    it('accepts a custom DDP listener', function (done) {
+      const operation = {
+        query: gql`subscription { fooSub }`,
+      };
+      const message = { fooSub: 'custom' };
+
+      const ddpListener = (callback) => {
+        setTimeout(() => {
+          callback({
+            type: GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE,
+            subId: this.link.subscriptionObservers.keys().next().value,
+            graphqlData: { data: { ...message } },
+          });
+        }, 10);
+      };
+
+      this.link = new DDPSubscriptionLink({ ddpListener });
+
+      const observer = this.link.request(operation);
+
+      const subscription = observer.subscribe({
+        next: ({ data }) => {
+          try {
+            chai.expect(data).to.deep.equal(message);
+            subscription.unsubscribe();
+            done();
+          } catch (e) {
+            done(e);
+          }
+        },
       });
     });
   });
