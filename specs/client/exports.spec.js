@@ -22,7 +22,7 @@ describe('Client exports', function () {
   });
 
   it('exports a meteorAuthLink', function () {
-    expect(meteorAuthLink).to.be.a('function');
+    expect(meteorAuthLink).to.be.an('object');
   });
 
   it('exports a createGraphQLFetcher', function () {
