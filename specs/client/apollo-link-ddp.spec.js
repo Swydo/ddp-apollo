@@ -240,19 +240,20 @@ describe('DDPSubscriptionLink', function () {
         query: gql`subscription { fooSub }`,
       };
       const message = { fooSub: 'custom' };
+      let customObserverLink;
 
       const ddpObserver = new Observable((observer) => {
         setTimeout(() => {
           observer.next({
             type: GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE,
-            subId: this.link.subscriptionObservers.keys().next().value,
+            subId: customObserverLink.subscriptionObservers.keys().next().value,
             graphqlData: { data: { ...message } },
           });
           observer.complete();
         }, 10);
       });
 
-      const customObserverLink = new DDPSubscriptionLink({ ddpObserver });
+      customObserverLink = new DDPSubscriptionLink({ ddpObserver });
 
       chai.expect(customObserverLink.ddpObserver).to.equal(ddpObserver);
 
@@ -269,6 +270,7 @@ describe('DDPSubscriptionLink', function () {
             done(e);
           }
         },
+        error: done,
       });
     });
   });
