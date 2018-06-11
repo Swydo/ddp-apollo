@@ -1,13 +1,13 @@
 /* eslint-disable prefer-arrow-callback, func-names */
 /* eslint-env mocha */
 import chai from 'chai';
-import { createFetcher } from '../../lib/client/graphQLFetcher';
+import { createGraphQLFetcher } from '../../lib/client/graphQLFetcher';
 import { callPromise } from './helpers/callPromise';
 import { loginWithUserId } from './helpers/login';
 
 describe('graphQLFetcher', function () {
   beforeEach(function () {
-    this.fetcher = createFetcher();
+    this.fetcher = createGraphQLFetcher();
   });
 
   it('should return data from the server', async function () {
