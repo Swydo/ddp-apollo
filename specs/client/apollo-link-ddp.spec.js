@@ -165,8 +165,17 @@ describe('DDPSubscriptionLink', function () {
     Meteor.call('ddp-apollo/setup', done);
   });
 
+  afterEach(function () {
+    this.link.ddpSubscription.unsubscribe();
+  });
+
   it('should add a default publication', function () {
     chai.expect(this.link.publication).to.equal(DEFAULT_PUBLICATION);
+  });
+
+  it('subscribes to DDP messages', function () {
+    chai.expect(this.link.ddpObserver).to.be.an('object');
+    chai.expect(this.link.ddpSubscription).to.be.an('object');
   });
 
   describe('#request', function () {
@@ -254,6 +263,7 @@ describe('DDPSubscriptionLink', function () {
           try {
             chai.expect(data).to.deep.equal(message);
             subscription.unsubscribe();
+            customObserverLink.ddpSubscription.unsubscribe();
             done();
           } catch (e) {
             done(e);
@@ -267,6 +277,10 @@ describe('DDPSubscriptionLink', function () {
 describe('#getDDPLink', function () {
   beforeEach(function () {
     this.link = getDDPLink();
+  });
+
+  afterEach(function () {
+    this.link.subscriptionLink.ddpSubscription.unsubscribe();
   });
 
   it('should return an instance of ApolloLink', function () {

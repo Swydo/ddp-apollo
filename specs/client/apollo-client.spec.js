@@ -13,10 +13,16 @@ describe('ApolloClient with DDP link', function () {
     // The ApolloClient won't recognize Promise in package tests unless exported like this
     global.Promise = Promise;
 
+    this.link = getDDPLink();
+
     this.client = new ApolloClient({
-      link: getDDPLink(),
+      link: this.link,
       cache: new InMemoryCache(),
     });
+  });
+
+  afterEach(function () {
+    this.link.subscriptionLink.ddpSubscription.unsubscribe();
   });
 
   describe('#query', function () {
