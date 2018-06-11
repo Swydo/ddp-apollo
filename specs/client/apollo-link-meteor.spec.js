@@ -10,12 +10,18 @@ import { MeteorLink } from '../../lib/client/apollo-link-meteor';
 
 describe('MeteorLink', function () {
   beforeEach(function () {
+    this.link = new MeteorLink();
+
     this.client = new ApolloClient({
-      link: new MeteorLink(),
+      link: this.link,
       cache: new InMemoryCache(),
     });
 
     this.client.cache.reset();
+  });
+
+  afterEach(function () {
+    this.link.subscriptionLink.ddpSubscription.unsubscribe();
   });
 
   describe('#query', function () {

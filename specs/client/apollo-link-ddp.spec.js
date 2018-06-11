@@ -6,7 +6,7 @@ import { ApolloLink, Observable } from 'apollo-link';
 import { loginWithUserId } from './helpers/login';
 import { callPromise } from './helpers/callPromise';
 import { getDDPLink, DDPMethodLink, DDPSubscriptionLink } from '../../lib/client/apollo-link-ddp';
-import { DEFAULT_METHOD, DEFAULT_PUBLICATION } from '../../lib/common/defaults';
+import { DEFAULT_METHOD, DEFAULT_PUBLICATION, GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE } from '../../lib/common/defaults';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
 describe('DDPMethodLink', function () {
@@ -165,8 +165,17 @@ describe('DDPSubscriptionLink', function () {
     Meteor.call('ddp-apollo/setup', done);
   });
 
+  afterEach(function () {
+    this.link.ddpSubscription.unsubscribe();
+  });
+
   it('should add a default publication', function () {
     chai.expect(this.link.publication).to.equal(DEFAULT_PUBLICATION);
+  });
+
+  it('subscribes to DDP messages', function () {
+    chai.expect(this.link.ddpObserver).to.be.an('object');
+    chai.expect(this.link.ddpSubscription).to.be.an('object');
   });
 
   describe('#request', function () {
@@ -225,12 +234,55 @@ describe('DDPSubscriptionLink', function () {
         }, 100);
       });
     });
+
+    it('accepts a custom DDP observer', function (done) {
+      const operation = {
+        query: gql`subscription { fooSub }`,
+      };
+      const message = { fooSub: 'custom' };
+      let customObserverLink;
+
+      const ddpObserver = new Observable((observer) => {
+        setTimeout(() => {
+          observer.next({
+            type: GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE,
+            subId: customObserverLink.subscriptionObservers.keys().next().value,
+            graphqlData: { data: { ...message } },
+          });
+          observer.complete();
+        }, 10);
+      });
+
+      customObserverLink = new DDPSubscriptionLink({ ddpObserver });
+
+      chai.expect(customObserverLink.ddpObserver).to.equal(ddpObserver);
+
+      const observer = customObserverLink.request(operation);
+
+      const subscription = observer.subscribe({
+        next: ({ data }) => {
+          try {
+            chai.expect(data).to.deep.equal(message);
+            subscription.unsubscribe();
+            customObserverLink.ddpSubscription.unsubscribe();
+            done();
+          } catch (e) {
+            done(e);
+          }
+        },
+        error: done,
+      });
+    });
   });
 });
 
 describe('#getDDPLink', function () {
   beforeEach(function () {
     this.link = getDDPLink();
+  });
+
+  afterEach(function () {
+    this.link.subscriptionLink.ddpSubscription.unsubscribe();
   });
 
   it('should return an instance of ApolloLink', function () {
