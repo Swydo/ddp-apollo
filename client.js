@@ -1,6 +1,8 @@
 import { DDPLink } from './lib/client/apollo-link-ddp';
 
 export * from './lib/client/apollo-link-ddp';
+export * from './lib/client/apollo-link-meteor';
+export * from './lib/client/apollo-link-meteor-auth';
 export * from './lib/client/graphQLFetcher';
 export * from './lib/common/isSubscription';
 
