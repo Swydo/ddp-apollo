@@ -1,7 +1,8 @@
-## 1.4.0-beta.1
+## NEXT
 
-- Add HTTP support (https://github.com/Swydo/ddp-apollo/pull/168)
-- Add a DDP retry switch (https://github.com/Swydo/ddp-apollo/pull/186)
+- Add HTTP support [#168](https://github.com/Swydo/ddp-apollo/pull/168)
+- Add a DDP retry switch [#186](https://github.com/Swydo/ddp-apollo/pull/186)
+- Allow custom DDP message observer [#198](https://github.com/Swydo/ddp-apollo/pull/198)
 
 ## 1.3.0
 
