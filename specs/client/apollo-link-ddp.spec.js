@@ -226,25 +226,28 @@ describe('DDPSubscriptionLink', function () {
       });
     });
 
-    it('accepts a custom DDP listener', function (done) {
+    it('accepts a custom DDP observer', function (done) {
       const operation = {
         query: gql`subscription { fooSub }`,
       };
       const message = { fooSub: 'custom' };
 
-      const ddpListener = (callback) => {
+      const ddpObserver = new Observable((observer) => {
         setTimeout(() => {
-          callback({
+          observer.next({
             type: GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE,
             subId: this.link.subscriptionObservers.keys().next().value,
             graphqlData: { data: { ...message } },
           });
+          observer.complete();
         }, 10);
-      };
+      });
 
-      this.link = new DDPSubscriptionLink({ ddpListener });
+      const customObserverLink = new DDPSubscriptionLink({ ddpObserver });
 
-      const observer = this.link.request(operation);
+      chai.expect(customObserverLink.ddpObserver).to.equal(ddpObserver);
+
+      const observer = customObserverLink.request(operation);
 
       const subscription = observer.subscribe({
         next: ({ data }) => {
