@@ -1,10 +1,10 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import { pubsub } from '../data/pubsub';
-import { setup, setupHttpEndpoint } from '../../lib/server/setup';
 import {
   DEFAULT_METHOD,
   DEFAULT_PUBLICATION,
-} from '../../lib/common/defaults';
+} from 'apollo-link-ddp';
+import { pubsub } from '../data/pubsub';
+import { setup, setupHttpEndpoint } from '../../lib/server/setup';
 
 import { typeDefs } from '../data/typeDefs';
 import { resolvers } from '../data/resolvers';

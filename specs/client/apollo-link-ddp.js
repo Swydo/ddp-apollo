@@ -3,10 +3,16 @@
 import chai from 'chai';
 import gql from 'graphql-tag';
 import { ApolloLink, Observable } from 'apollo-link';
+import {
+  DEFAULT_METHOD,
+  DEFAULT_PUBLICATION,
+  GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE,
+  getDDPLink,
+  DDPMethodLink,
+  DDPSubscriptionLink,
+} from 'apollo-link-ddp';
 import { loginWithUserId } from './helpers/login';
 import { callPromise } from './helpers/callPromise';
-import { getDDPLink, DDPMethodLink, DDPSubscriptionLink } from '../../lib/client/apollo-link-ddp';
-import { DEFAULT_METHOD, DEFAULT_PUBLICATION, GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE } from '../../lib/common/defaults';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
 describe('DDPMethodLink', function () {

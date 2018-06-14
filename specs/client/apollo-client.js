@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { Promise } from 'meteor/promise';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { getDDPLink } from '../../lib/client/apollo-link-ddp';
+import { getDDPLink } from 'apollo-link-ddp';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
 describe('ApolloClient with DDP link', function () {
