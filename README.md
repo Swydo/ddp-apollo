@@ -52,15 +52,15 @@ meteor add swydo:ddp-apollo
 ```
 
 ```
-meteor npm install --save graphql apollo-link apollo-client apollo-cache-inmemory
+meteor npm install --save apollo-link-ddp apollo-link apollo-client apollo-cache-inmemory graphql
 ```
 
 ## Client setup
-This package gives you a `DDPLink` for your Apollo Client.
+All client code is in the `apollo-link-ddp` npm package. It gives you a `DDPLink` for your Apollo Client. Creating an Apollo Client is the same as with any other Apollo Link.
 
 ```javascript
 import ApolloClient from 'apollo-client';
-import { DDPLink } from 'meteor/swydo:ddp-apollo';
+import { DDPLink } from 'apollo-link-ddp';
 // Choose any cache implementation, but we'll use InMemoryCache as an example
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
@@ -84,7 +84,7 @@ new DDPLink({
 ```
 
 ## Server setup
-The server will add a method that will be used by the DDP Apollo Link.
+The server will add a method and publication that will be used by the DDP Apollo Link.
 
 ```javascript
 import { schema } from './path/to/your/executable/schema';
@@ -175,7 +175,7 @@ If you already have an HTTP server setup and you are looking to support GraphQL 
 import { ApolloClient } from 'apollo-client';
 import { split } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
-import { DDPSubscriptionLink, isSubscription } from 'meteor/swydo:ddp-apollo';
+import { DDPSubscriptionLink, isSubscription } from 'apollo-link-ddp';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 const httpLink = new HttpLink({ uri: "/graphql" });
@@ -229,8 +229,8 @@ meteor npm install apollo-link-http body-parser
 ```js
 import ApolloClient from 'apollo-client';
 // Use the MeteorLink instead of the DDPLink
-// It uses HTTP for queries and Meteor subscriptions for GraphQL subscriptions
-import { MeteorLink } from 'meteor/swydo:ddp-apollo';
+// It uses HTTP for queries and Meteor subscriptions (DDP) for GraphQL subscriptions
+import { MeteorLink } from 'apollo-link-ddp';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 export const client = new ApolloClient ({
