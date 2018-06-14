@@ -1,0 +1,28 @@
+{
+  "name": "apollo-link-ddp",
+  "version": "0.1.0",
+  "description": "Apollo Link using DDP",
+  "main": "index.js",
+  "peerDependencies": {
+    "apollo-link": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swydo/ddp-apollo.git"
+  },
+  "keywords": [
+    "apollo",
+    "graphql",
+    "link",
+    "ddp"
+  ],
+  "author": "Michiel ter Reehorst",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Swydo/ddp-apollo/issues"
+  },
+  "homepage": "https://github.com/Swydo/ddp-apollo#readme"
+}
