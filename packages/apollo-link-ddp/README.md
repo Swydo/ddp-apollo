@@ -1,5 +1,5 @@
 # Apollo Link using DDP
-This is the client part of the DDP setup for Apollo. It works out of the box in a Meteor environment but is also usable with packages like `ddp.js`.
+This is the client part of the DDP setup for Apollo. It works out of the box in a Meteor environment but is also usable with packages like `asteroid`.
 
 ## Installation
 ```
@@ -33,23 +33,21 @@ new DDPLink({
 });
 ```
 
-## Using ddp.js instead of Meteor
-If you are using [asteroid](https://github.com/mondora/asteroid) or the `ddp` npm package directly, you can also use DDP-Apollo!
+## Using with asteroid
+If you are using [asteroid](https://github.com/mondora/asteroid) you can also use DDP-Apollo!
 
 ```javascript
-const DDP = require("ddp.js");
-const options = {
-    endpoint: "ws://localhost:3000/websocket"
-};
-const connection = new DDP(options); // Or asteroid.ddp, when using Asteroid
-
-// Support GQL subscriptions as well
-const ddpObserver = new Observable((observer) => {
-    connection.socket.on("message:in", message => observer.next(message));
+const Asteroid = createClass();
+const asteroid = new Asteroid({
+    endpoint: 'ws://localhost:3000/websocket',
 });
 
-new DDPLink({
-  connection,
-  ddpObserver,
+const ddpObserver = new Observable((observer) => {
+    asteroid.ddp.socket.on('message:in', message => observer.next(message));
+});
+
+const link = new DDPLink({
+    connection: asteroid,
+    ddpObserver,
 });
 ```

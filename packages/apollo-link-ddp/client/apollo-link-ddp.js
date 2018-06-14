@@ -24,6 +24,15 @@ function getClientContext(operation, key = DEFAULT_CLIENT_CONTEXT_KEY) {
   return operation.getContext && operation.getContext()[key];
 }
 
+function callPromise(connection, name, args, options) {
+  return new Promise((resolve, reject) => {
+    const promise = connection.apply(name, args, options, (err, data) => {
+      err ? reject(err) : resolve(data);
+    });
+    if (promise && promise.then) { resolve(promise); }
+  });
+}
+
 class DDPMethodLink extends ApolloLink {
   constructor({
     connection = getDefaultMeteorConnection(),
@@ -44,14 +53,10 @@ class DDPMethodLink extends ApolloLink {
     const options = { noRetry: !this.ddpRetry };
 
     return new Observable((observer) => {
-      this.connection.apply(this.method, args, options, (error, result) => {
-        if (error) {
-          observer.error(error);
-        } else {
-          observer.next(result);
-        }
-        observer.complete();
-      });
+      callPromise(this.connection, this.method, args, options)
+        .then(result => observer.next(result))
+        .catch(err => observer.error(err))
+        .finally(() => observer.complete());
 
       return () => {};
     });
@@ -91,13 +96,20 @@ class DDPSubscriptionLink extends ApolloLink {
   request(operation = {}) {
     const clientContext = getClientContext(operation, this.clientContextKey);
     const subHandler = this.connection.subscribe(this.publication, operation, clientContext);
-    const { subscriptionId: subId } = subHandler;
+    const subId = subHandler.subscriptionId // Meteor
+      || subHandler.id; // Asteroid
 
     return new Observable((observer) => {
       this.subscriptionObservers.set(subId, observer);
 
       return () => {
-        subHandler.stop();
+        if (subHandler.stop) {
+          subHandler.stop();
+        } else if (this.connection.unsubscribe) {
+          this.connection.unsubscribe(subId);
+        } else {
+          console.warn(`ddp-apollo: could not unsubscribe from subscription with ID ${subId}`);
+        }
         this.subscriptionObservers.delete(subId);
       };
     });

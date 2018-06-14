@@ -10,6 +10,7 @@
     "apollo-client": "2.4.12",
     "apollo-link": "^1.0.0",
     "apollo-link-http": "^1.2.0",
+    "asteroid": "^2.0.3",
     "body-parser": "^1.18.2",
     "chai": "4.1.2",
     "doctoc": "1.4.0",
