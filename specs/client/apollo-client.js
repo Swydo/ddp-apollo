@@ -77,7 +77,7 @@ describe('ApolloClient with DDP link', function () {
         },
       });
 
-      Meteor.call('ddp-apollo/publish', FOO_CHANGED_TOPIC, message);
+      this.link.subscriptionLink.connection.call('ddp-apollo/publish', FOO_CHANGED_TOPIC, message);
     });
   });
 });
