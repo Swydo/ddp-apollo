@@ -1,10 +1,10 @@
-import { ApolloLink, split } from 'apollo-link';
-import { DDPSubscriptionLink } from './apollo-link-ddp';
-import { meteorAuthLink } from './apollo-link-meteor-auth';
-import { DEFAULT_PATH } from '../common/defaults';
-import { isSubscription } from '../common/isSubscription';
+const { ApolloLink, split } = require('apollo-link');
+const isSubscription = require('../common/isSubscription');
+const { DDPSubscriptionLink } = require('./apollo-link-ddp');
+const { DEFAULT_PATH } = require('../common/defaults');
+const meteorAuthLink = require('./apollo-link-meteor-auth');
 
-export class MeteorLink extends ApolloLink {
+class MeteorLink extends ApolloLink {
   constructor(options = {}) {
     super();
 
@@ -30,3 +30,5 @@ export class MeteorLink extends ApolloLink {
     ).request(operation);
   }
 }
+
+module.exports = MeteorLink;

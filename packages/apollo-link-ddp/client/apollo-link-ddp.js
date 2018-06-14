@@ -1,10 +1,14 @@
-import { ApolloLink, Observable, split } from 'apollo-link';
-import { DEFAULT_METHOD, DEFAULT_PUBLICATION, DEFAULT_CLIENT_CONTEXT_KEY } from '../common/defaults';
-import { isSubscription } from '../common/isSubscription';
-import {
+const { ApolloLink, Observable, split } = require('apollo-link');
+const isSubscription = require('../common/isSubscription');
+const {
+  DEFAULT_METHOD,
+  DEFAULT_PUBLICATION,
+  DEFAULT_CLIENT_CONTEXT_KEY,
+} = require('../common/defaults');
+const {
   createClientStreamObserver,
   filterGraphQLMessages,
-} from './listenToGraphQLMessages';
+} = require('./listenToGraphQLMessages');
 
 function getDefaultMeteorConnection() {
   try {
@@ -20,7 +24,7 @@ function getClientContext(operation, key = DEFAULT_CLIENT_CONTEXT_KEY) {
   return operation.getContext && operation.getContext()[key];
 }
 
-export class DDPMethodLink extends ApolloLink {
+class DDPMethodLink extends ApolloLink {
   constructor({
     connection = getDefaultMeteorConnection(),
     method = DEFAULT_METHOD,
@@ -54,7 +58,7 @@ export class DDPMethodLink extends ApolloLink {
   }
 }
 
-export class DDPSubscriptionLink extends ApolloLink {
+class DDPSubscriptionLink extends ApolloLink {
   constructor({
     connection = getDefaultMeteorConnection(),
     publication = DEFAULT_PUBLICATION,
@@ -104,7 +108,7 @@ export class DDPSubscriptionLink extends ApolloLink {
 * DDPLink combines the functionality from the method link and the subscription link
 * providing support for queries, mutations and subscriptions.
 */
-export class DDPLink extends ApolloLink {
+class DDPLink extends ApolloLink {
   constructor(options) {
     super();
     this.methodLink = new DDPMethodLink(options);
@@ -120,6 +124,13 @@ export class DDPLink extends ApolloLink {
   }
 }
 
-export function getDDPLink(options) {
+function getDDPLink(options) {
   return new DDPLink(options);
 }
+
+module.exports = {
+  getDDPLink,
+  DDPLink,
+  DDPMethodLink,
+  DDPSubscriptionLink,
+};

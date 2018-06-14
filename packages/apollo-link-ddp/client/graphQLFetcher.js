@@ -1,11 +1,11 @@
 /* global window, fetch */
-import { getLoginToken } from './getLoginToken';
-import { DEFAULT_PATH } from '../common/defaults';
+const { DEFAULT_PATH } = require('../common/defaults');
+const getLoginToken = require('./getLoginToken');
 
 /*
 * Create a graphQL fetcher for graphiQL
 */
-export function createGraphQLFetcher({
+function createGraphQLFetcher({
   path = DEFAULT_PATH,
 } = {}) {
   return function graphQLFetcher(graphQLParams) {
@@ -21,3 +21,5 @@ export function createGraphQLFetcher({
     }).then(response => response.json());
   };
 }
+
+module.exports = createGraphQLFetcher;

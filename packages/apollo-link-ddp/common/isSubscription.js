@@ -1,8 +1,10 @@
-import { getOperationAST } from 'graphql';
+const { getOperationAST } = require('graphql');
 
-export const isSubscription = (operation) => {
+const isSubscription = (operation) => {
   const { query, operationName } = operation;
   const operationAST = getOperationAST(query, operationName);
 
   return !!operationAST && operationAST.operation === 'subscription';
 };
+
+module.exports = isSubscription;
