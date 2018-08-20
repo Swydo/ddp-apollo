@@ -6,7 +6,7 @@
   "main": "lib/setup.js",
   "dependencies": {},
   "devDependencies": {
-    "apollo-cache-inmemory": "1.2.6",
+    "apollo-cache-inmemory": "1.2.8",
     "apollo-client": "2.4.0",
     "apollo-link": "^1.0.0",
     "apollo-link-http": "^1.2.0",
