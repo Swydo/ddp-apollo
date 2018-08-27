@@ -7,6 +7,10 @@ type Query {
   somethingBad: String
 }
 
+type Mutation {
+  foo: String
+}
+
 type Subscription {
   fooSub: String
 }

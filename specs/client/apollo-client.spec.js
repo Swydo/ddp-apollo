@@ -32,6 +32,12 @@ describe('ApolloClient with DDP link', function () {
       chai.expect(data.foo).to.be.a('string');
     });
 
+    it('returns mutation data', async function () {
+      const { data } = await this.client.mutate({ mutation: gql`mutation { foo }` });
+
+      chai.expect(data.foo).to.be.a('string');
+    });
+
     it('should pass and retrieve a ddp context', async function () {
       const { data } = await this.client.query({
         query: gql`query { ddpContextValue }`,
