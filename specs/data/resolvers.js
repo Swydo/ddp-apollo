@@ -13,6 +13,9 @@ export const resolvers = {
     ddpContextValue: (_, __, { ddpContext } = {}) => ddpContext,
     somethingBad: () => { throw new Error('SOMETHING_BAD'); },
   },
+  Mutation: {
+    foo: () => 'fooMutated',
+  },
   Subscription: {
     fooSub: {
       subscribe: () => pubsub.asyncIterator(FOO_CHANGED_TOPIC),
