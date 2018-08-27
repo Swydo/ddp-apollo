@@ -24,6 +24,18 @@ describe('MeteorLink', function () {
     this.link.subscriptionLink.ddpSubscription.unsubscribe();
   });
 
+  describe('#mutate', function () {
+    it('returns data from the server', async function () {
+      const operation = {
+        mutation: gql`mutation { foo }`,
+      };
+
+      const { data } = await this.client.mutate(operation);
+
+      chai.expect(data).to.deep.equal({ foo: 'fooMutated' });
+    });
+  });
+
   describe('#query', function () {
     it('should return data from the server', async function () {
       const operation = {
