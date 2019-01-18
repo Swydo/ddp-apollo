@@ -29,6 +29,6 @@ Package.onTest(function test(api) {
     'accounts-base',
   ]);
 
-  api.mainModule('specs/client.spec.js', 'client');
-  api.mainModule('specs/server.spec.js', 'server');
+  api.mainModule('specs/client.js', 'client');
+  api.mainModule('specs/server.js', 'server');
 });
