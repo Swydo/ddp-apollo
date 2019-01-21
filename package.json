@@ -7,7 +7,7 @@
   "dependencies": {},
   "devDependencies": {
     "apollo-cache-inmemory": "1.4.2",
-    "apollo-client": "2.4.8",
+    "apollo-client": "2.4.12",
     "apollo-link": "^1.0.0",
     "apollo-link-http": "^1.2.0",
     "body-parser": "^1.18.2",
@@ -21,7 +21,7 @@
     "graphql-subscriptions": "1.0.0",
     "graphql-tag": "2.10.1",
     "graphql-tools": "4.0.3",
-    "sinon": "6.0.1"
+    "sinon": "7.2.3"
   },
   "scripts": {
     "doctoc": "doctoc ./README.md",
