@@ -103,6 +103,27 @@ describe('DDPMethodLink', function () {
         error: done,
       });
     });
+
+    it('returns the isDDP flag', function (done) {
+      const operation = {
+        query: gql`query { isDDP }`,
+      };
+
+      const observer = this.link.request(operation);
+
+      observer.subscribe({
+        next: ({ data }) => {
+          try {
+            chai.expect(data.isDDP).to.be.a('boolean');
+            chai.expect(data.isDDP).to.be.true;
+            done();
+          } catch (e) {
+            done(e);
+          }
+        },
+        error: done,
+      });
+    });
   });
 
   describe('when disconnected', function () {
