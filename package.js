@@ -8,7 +8,7 @@ var packages = [
 
 Package.describe({
   name: 'swydo:ddp-apollo',
-  version: '1.4.0-beta.3',
+  version: '2.0.0',
   summary: 'DDP link and server for Apollo',
   git: 'https://github.com/swydo/ddp-apollo',
   documentation: 'README.md',
@@ -29,6 +29,6 @@ Package.onTest(function test(api) {
     'accounts-base',
   ]);
 
-  api.mainModule('specs/client.spec.js', 'client');
-  api.mainModule('specs/server.spec.js', 'server');
+  api.mainModule('specs/client.js', 'client');
+  api.mainModule('specs/server.js', 'server');
 });

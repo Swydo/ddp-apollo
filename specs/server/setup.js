@@ -3,10 +3,10 @@
 import chai from 'chai';
 import { makeExecutableSchema } from 'graphql-tools';
 import gql from 'graphql-tag';
+import { DEFAULT_METHOD } from 'apollo-link-ddp';
 
 import { setup, DDP_APOLLO_SCHEMA_REQUIRED } from '../../lib/server/setup';
 import { createGraphQLMethod } from '../../lib/server/createGraphQLMethod';
-import { DEFAULT_METHOD } from '../../lib/common/defaults';
 
 import { typeDefs } from '../data/typeDefs';
 import { resolvers } from '../data/resolvers';

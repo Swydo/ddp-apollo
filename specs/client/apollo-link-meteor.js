@@ -4,9 +4,9 @@ import chai from 'chai';
 import gql from 'graphql-tag';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
+import { MeteorLink } from 'apollo-link-ddp';
 import { loginWithUserId } from './helpers/login';
 import { callPromise } from './helpers/callPromise';
-import { MeteorLink } from '../../lib/client/apollo-link-meteor';
 
 describe('MeteorLink', function () {
   beforeEach(function () {
@@ -22,6 +22,18 @@ describe('MeteorLink', function () {
 
   afterEach(function () {
     this.link.subscriptionLink.ddpSubscription.unsubscribe();
+  });
+
+  describe('#mutate', function () {
+    it('returns data from the server', async function () {
+      const operation = {
+        mutation: gql`mutation { foo }`,
+      };
+
+      const { data } = await this.client.mutate(operation);
+
+      chai.expect(data).to.deep.equal({ foo: 'fooMutated' });
+    });
   });
 
   describe('#query', function () {

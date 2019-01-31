@@ -11,7 +11,11 @@ export const resolvers = {
     // See https://github.com/apollographql/meteor-integration/issues/92
     meteorUserId: () => Meteor.userId(),
     ddpContextValue: (_, __, { ddpContext } = {}) => ddpContext,
+    isDDP: (_, __, { ddpConnection } = {}) => Boolean(ddpConnection),
     somethingBad: () => { throw new Error('SOMETHING_BAD'); },
+  },
+  Mutation: {
+    foo: () => 'fooMutated',
   },
   Subscription: {
     fooSub: {

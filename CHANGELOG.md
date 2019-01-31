@@ -1,8 +1,13 @@
-## NEXT
+## 2.0.0
+
+- Move client code to stand-alone npm package [#207](https://github.com/Swydo/ddp-apollo/pull/207)
+
+## 1.4.0
 
 - Add HTTP support [#168](https://github.com/Swydo/ddp-apollo/pull/168)
 - Add a DDP retry switch [#186](https://github.com/Swydo/ddp-apollo/pull/186)
 - Allow custom DDP message observer [#198](https://github.com/Swydo/ddp-apollo/pull/198)
+- Add `ddpConnection` to the resolver context [#268](https://github.com/Swydo/ddp-apollo/pull/268)
 
 ## 1.3.0
 

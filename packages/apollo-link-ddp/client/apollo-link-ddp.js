@@ -1,10 +1,16 @@
-import { ApolloLink, Observable, split } from 'apollo-link';
-import { DEFAULT_METHOD, DEFAULT_PUBLICATION, DEFAULT_CLIENT_CONTEXT_KEY } from '../common/defaults';
-import { isSubscription } from '../common/isSubscription';
-import {
+const { ApolloLink, Observable, split } = require('apollo-link');
+const isSubscription = require('../common/isSubscription');
+const {
+  DEFAULT_METHOD,
+  DEFAULT_PUBLICATION,
+  DEFAULT_CLIENT_CONTEXT_KEY,
+  DEFAULT_SUBSCRIPTION_ID_KEY,
+} = require('../common/defaults');
+const {
   createClientStreamObserver,
+  createSocketObserver,
   filterGraphQLMessages,
-} from './listenToGraphQLMessages';
+} = require('./listenToGraphQLMessages');
 
 function getDefaultMeteorConnection() {
   try {
@@ -20,7 +26,16 @@ function getClientContext(operation, key = DEFAULT_CLIENT_CONTEXT_KEY) {
   return operation.getContext && operation.getContext()[key];
 }
 
-export class DDPMethodLink extends ApolloLink {
+function callPromise(connection, name, args, options) {
+  return new Promise((resolve, reject) => {
+    const promise = connection.apply(name, args, options, (err, data) => {
+      err ? reject(err) : resolve(data);
+    });
+    if (promise && promise.then) { resolve(promise); }
+  });
+}
+
+class DDPMethodLink extends ApolloLink {
   constructor({
     connection = getDefaultMeteorConnection(),
     method = DEFAULT_METHOD,
@@ -40,34 +55,34 @@ export class DDPMethodLink extends ApolloLink {
     const options = { noRetry: !this.ddpRetry };
 
     return new Observable((observer) => {
-      this.connection.apply(this.method, args, options, (error, result) => {
-        if (error) {
-          observer.error(error);
-        } else {
-          observer.next(result);
-        }
-        observer.complete();
-      });
+      callPromise(this.connection, this.method, args, options)
+        .then(result => observer.next(result))
+        .catch(err => observer.error(err))
+        .finally(() => observer.complete());
 
       return () => {};
     });
   }
 }
 
-export class DDPSubscriptionLink extends ApolloLink {
+class DDPSubscriptionLink extends ApolloLink {
   constructor({
     connection = getDefaultMeteorConnection(),
     publication = DEFAULT_PUBLICATION,
+    subscriptionIdKey = DEFAULT_SUBSCRIPTION_ID_KEY,
     clientContextKey,
-    ddpObserver,
+    socket,
   } = {}) {
     super();
     this.connection = connection;
     this.publication = publication;
     this.clientContextKey = clientContextKey;
+    this.subscriptionIdKey = subscriptionIdKey;
 
     this.subscriptionObservers = new Map();
-    this.ddpObserver = ddpObserver || createClientStreamObserver(this.connection._stream);
+    this.ddpObserver = socket ?
+      createSocketObserver(socket) :
+      createClientStreamObserver(this.connection._stream);
 
     this.ddpSubscription = this.ddpObserver
       .subscribe({
@@ -87,13 +102,19 @@ export class DDPSubscriptionLink extends ApolloLink {
   request(operation = {}) {
     const clientContext = getClientContext(operation, this.clientContextKey);
     const subHandler = this.connection.subscribe(this.publication, operation, clientContext);
-    const { subscriptionId: subId } = subHandler;
+    const subId = subHandler[this.subscriptionIdKey];
 
     return new Observable((observer) => {
       this.subscriptionObservers.set(subId, observer);
 
       return () => {
-        subHandler.stop();
+        if (subHandler.stop) {
+          subHandler.stop();
+        } else if (this.connection.unsubscribe) {
+          this.connection.unsubscribe(subId);
+        } else {
+          console.warn(`ddp-apollo: could not unsubscribe from subscription with ID ${subId}`);
+        }
         this.subscriptionObservers.delete(subId);
       };
     });
@@ -104,7 +125,7 @@ export class DDPSubscriptionLink extends ApolloLink {
 * DDPLink combines the functionality from the method link and the subscription link
 * providing support for queries, mutations and subscriptions.
 */
-export class DDPLink extends ApolloLink {
+class DDPLink extends ApolloLink {
   constructor(options) {
     super();
     this.methodLink = new DDPMethodLink(options);
@@ -120,6 +141,13 @@ export class DDPLink extends ApolloLink {
   }
 }
 
-export function getDDPLink(options) {
+function getDDPLink(options) {
   return new DDPLink(options);
 }
+
+module.exports = {
+  getDDPLink,
+  DDPLink,
+  DDPMethodLink,
+  DDPSubscriptionLink,
+};
