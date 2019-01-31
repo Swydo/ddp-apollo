@@ -4,6 +4,7 @@ const {
   DEFAULT_METHOD,
   DEFAULT_PUBLICATION,
   DEFAULT_CLIENT_CONTEXT_KEY,
+  DEFAULT_SUBSCRIPTION_ID_KEY,
 } = require('../common/defaults');
 const {
   createClientStreamObserver,
@@ -68,6 +69,7 @@ class DDPSubscriptionLink extends ApolloLink {
   constructor({
     connection = getDefaultMeteorConnection(),
     publication = DEFAULT_PUBLICATION,
+    subscriptionIdKey = DEFAULT_SUBSCRIPTION_ID_KEY,
     clientContextKey,
     socket,
   } = {}) {
@@ -75,6 +77,7 @@ class DDPSubscriptionLink extends ApolloLink {
     this.connection = connection;
     this.publication = publication;
     this.clientContextKey = clientContextKey;
+    this.subscriptionIdKey = subscriptionIdKey;
 
     this.subscriptionObservers = new Map();
     this.ddpObserver = socket ?
@@ -99,8 +102,7 @@ class DDPSubscriptionLink extends ApolloLink {
   request(operation = {}) {
     const clientContext = getClientContext(operation, this.clientContextKey);
     const subHandler = this.connection.subscribe(this.publication, operation, clientContext);
-    const subId = subHandler.subscriptionId // Meteor
-      || subHandler.id; // Asteroid
+    const subId = subHandler[this.subscriptionIdKey];
 
     return new Observable((observer) => {
       this.subscriptionObservers.set(subId, observer);

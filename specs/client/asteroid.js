@@ -24,6 +24,7 @@ describe('Using Asteroid', function () {
     this.link = getDDPLink({
       connection: asteroid,
       socket: asteroid.ddp.socket,
+      subscriptionIdKey: 'id',
     });
 
     this.client = new ApolloClient({
