@@ -8,12 +8,24 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { getDDPLink } from 'apollo-link-ddp';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
-describe('ApolloClient with DDP link', function () {
+describe('Using Asteroid', function () {
   beforeEach(function () {
     // The ApolloClient won't recognize Promise in package tests unless exported like this
     global.Promise = Promise;
 
-    this.link = getDDPLink();
+    // eslint-disable-next-line global-require
+    const { createClass } = require('asteroid');
+
+    const Asteroid = createClass();
+    const asteroid = new Asteroid({
+      endpoint: 'ws://localhost:3000/websocket',
+    });
+
+    this.link = getDDPLink({
+      connection: asteroid,
+      socket: asteroid.ddp.socket,
+      subscriptionIdKey: 'id',
+    });
 
     this.client = new ApolloClient({
       link: this.link,
@@ -30,33 +42,6 @@ describe('ApolloClient with DDP link', function () {
       const { data } = await this.client.query({ query: gql`query { foo }` });
 
       chai.expect(data.foo).to.be.a('string');
-    });
-
-    it('returns mutation data', async function () {
-      const { data } = await this.client.mutate({ mutation: gql`mutation { foo }` });
-
-      chai.expect(data.foo).to.be.a('string');
-    });
-
-    it('should pass and retrieve a ddp context', async function () {
-      const { data } = await this.client.query({
-        query: gql`query { ddpContextValue }`,
-        context: { ddpContext: 'ddpFoo' },
-      });
-
-      chai.expect(data.ddpContextValue).to.equal('ddpFoo');
-    });
-
-    it('handles errors', async function () {
-      try {
-        await this.client.query({
-          query: gql`query { somethingBad }`,
-        });
-        chai.expect(false, 'this should not happen').to.equal(true);
-      } catch (err) {
-        chai.expect(err.message).to.equal('GraphQL error: SOMETHING_BAD');
-        chai.expect(err.graphQLErrors[0].message).to.equal('SOMETHING_BAD');
-      }
     });
   });
 

@@ -9,7 +9,9 @@
     "apollo-cache-inmemory": "1.4.2",
     "apollo-client": "2.4.12",
     "apollo-link": "^1.0.0",
+    "apollo-link-ddp": "file:packages/apollo-link-ddp",
     "apollo-link-http": "^1.2.0",
+    "asteroid": "^2.0.3",
     "body-parser": "^1.18.2",
     "chai": "4.1.2",
     "doctoc": "1.4.0",
@@ -21,6 +23,7 @@
     "graphql-subscriptions": "1.0.0",
     "graphql-tag": "2.10.1",
     "graphql-tools": "4.0.4",
+    "simpleddp": "^1.2.3",
     "sinon": "7.2.3"
   },
   "scripts": {

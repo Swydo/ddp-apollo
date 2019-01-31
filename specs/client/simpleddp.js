@@ -8,12 +8,29 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { getDDPLink } from 'apollo-link-ddp';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
-describe('ApolloClient with DDP link', function () {
+describe('Using SimpleDDP', function () {
   beforeEach(function () {
     // The ApolloClient won't recognize Promise in package tests unless exported like this
     global.Promise = Promise;
 
-    this.link = getDDPLink();
+    // eslint-disable-next-line global-require
+    const SimpleDDP = require('simpleddp');
+
+    const ddp = new SimpleDDP({
+      endpoint: 'ws://localhost:3000/websocket',
+      SocketConstructor: global.WebSocket,
+    });
+
+    // SimpleDDP has a different API than the default DDP client
+    // We need to map some functions to a format which the DDP link understands
+    ddp.apply = ddp.call;
+    ddp.subscribe = (pub, ...args) => ddp.sub(pub, args);
+
+    this.link = getDDPLink({
+      connection: ddp,
+      socket: ddp.ddpConnection.socket,
+      subscriptionIdKey: 'subid',
+    });
 
     this.client = new ApolloClient({
       link: this.link,
@@ -30,33 +47,6 @@ describe('ApolloClient with DDP link', function () {
       const { data } = await this.client.query({ query: gql`query { foo }` });
 
       chai.expect(data.foo).to.be.a('string');
-    });
-
-    it('returns mutation data', async function () {
-      const { data } = await this.client.mutate({ mutation: gql`mutation { foo }` });
-
-      chai.expect(data.foo).to.be.a('string');
-    });
-
-    it('should pass and retrieve a ddp context', async function () {
-      const { data } = await this.client.query({
-        query: gql`query { ddpContextValue }`,
-        context: { ddpContext: 'ddpFoo' },
-      });
-
-      chai.expect(data.ddpContextValue).to.equal('ddpFoo');
-    });
-
-    it('handles errors', async function () {
-      try {
-        await this.client.query({
-          query: gql`query { somethingBad }`,
-        });
-        chai.expect(false, 'this should not happen').to.equal(true);
-      } catch (err) {
-        chai.expect(err.message).to.equal('GraphQL error: SOMETHING_BAD');
-        chai.expect(err.graphQLErrors[0].message).to.equal('SOMETHING_BAD');
-      }
     });
   });
 
@@ -77,7 +67,7 @@ describe('ApolloClient with DDP link', function () {
         },
       });
 
-      this.link.subscriptionLink.connection.call('ddp-apollo/publish', FOO_CHANGED_TOPIC, message);
+      this.link.subscriptionLink.connection.call('ddp-apollo/publish', [FOO_CHANGED_TOPIC, message]);
     });
   });
 });

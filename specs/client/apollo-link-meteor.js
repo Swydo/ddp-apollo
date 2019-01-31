@@ -4,9 +4,9 @@ import chai from 'chai';
 import gql from 'graphql-tag';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
+import { MeteorLink } from 'apollo-link-ddp';
 import { loginWithUserId } from './helpers/login';
 import { callPromise } from './helpers/callPromise';
-import { MeteorLink } from '../../lib/client/apollo-link-meteor';
 
 describe('MeteorLink', function () {
   beforeEach(function () {

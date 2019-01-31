@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback, func-names */
 /* eslint-env mocha */
 import chai from 'chai';
-import { createGraphQLFetcher } from '../../lib/client/graphQLFetcher';
+import { createGraphQLFetcher } from 'apollo-link-ddp';
 import { callPromise } from './helpers/callPromise';
 import { loginWithUserId } from './helpers/login';
 

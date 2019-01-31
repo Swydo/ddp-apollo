@@ -1,7 +1,7 @@
-import { Observable } from 'apollo-link';
-import { GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE } from '../common/defaults';
+const { Observable } = require('apollo-link');
+const { GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE } = require('../common/defaults');
 
-export function filterGraphQLMessages(callback) {
+function filterGraphQLMessages(callback) {
   return (message) => {
     const data = typeof message === 'string' ?
       JSON.parse(message) :
@@ -26,7 +26,7 @@ export function filterGraphQLMessages(callback) {
   };
 }
 
-export function createClientStreamObserver(stream) {
+function createClientStreamObserver(stream) {
   return new Observable((observer) => {
     const event = 'message';
     const callback = message => observer.next(message);
@@ -44,3 +44,20 @@ export function createClientStreamObserver(stream) {
     };
   });
 }
+
+function createSocketObserver(socket) {
+  return new Observable((observer) => {
+    const event = 'message:in';
+    const listener = message => observer.next(message);
+
+    socket.on(event, listener);
+
+    return () => socket.off(event, listener);
+  });
+}
+
+module.exports = {
+  createClientStreamObserver,
+  createSocketObserver,
+  filterGraphQLMessages,
+};

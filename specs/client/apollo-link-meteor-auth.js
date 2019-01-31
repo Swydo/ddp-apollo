@@ -5,8 +5,7 @@ import gql from 'graphql-tag';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
-import { meteorAuthLink } from '../../lib/client/apollo-link-meteor-auth';
-import { DEFAULT_PATH } from '../../lib/common/defaults';
+import { DEFAULT_PATH, meteorAuthLink } from 'apollo-link-ddp';
 
 describe('MeteorAuthLink', function () {
   beforeEach(function () {
