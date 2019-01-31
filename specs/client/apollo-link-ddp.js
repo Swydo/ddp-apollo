@@ -6,7 +6,6 @@ import { ApolloLink, Observable } from 'apollo-link';
 import {
   DEFAULT_METHOD,
   DEFAULT_PUBLICATION,
-  GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE,
   getDDPLink,
   DDPMethodLink,
   DDPSubscriptionLink,
@@ -259,45 +258,6 @@ describe('DDPSubscriptionLink', function () {
             done(e);
           }
         }, 100);
-      });
-    });
-
-    it('accepts a custom DDP observer', function (done) {
-      const operation = {
-        query: gql`subscription { fooSub }`,
-      };
-      const message = { fooSub: 'custom' };
-      let customObserverLink;
-
-      const ddpObserver = new Observable((observer) => {
-        setTimeout(() => {
-          observer.next({
-            type: GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE,
-            subId: customObserverLink.subscriptionObservers.keys().next().value,
-            graphqlData: { data: { ...message } },
-          });
-          observer.complete();
-        }, 10);
-      });
-
-      customObserverLink = new DDPSubscriptionLink({ ddpObserver });
-
-      chai.expect(customObserverLink.ddpObserver).to.equal(ddpObserver);
-
-      const observer = customObserverLink.request(operation);
-
-      const subscription = observer.subscribe({
-        next: ({ data }) => {
-          try {
-            chai.expect(data).to.deep.equal(message);
-            subscription.unsubscribe();
-            customObserverLink.ddpSubscription.unsubscribe();
-            done();
-          } catch (e) {
-            done(e);
-          }
-        },
-        error: done,
       });
     });
   });

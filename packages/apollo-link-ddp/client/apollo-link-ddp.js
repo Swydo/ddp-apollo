@@ -7,6 +7,7 @@ const {
 } = require('../common/defaults');
 const {
   createClientStreamObserver,
+  createSocketObserver,
   filterGraphQLMessages,
 } = require('./listenToGraphQLMessages');
 
@@ -68,7 +69,7 @@ class DDPSubscriptionLink extends ApolloLink {
     connection = getDefaultMeteorConnection(),
     publication = DEFAULT_PUBLICATION,
     clientContextKey,
-    ddpObserver,
+    socket,
   } = {}) {
     super();
     this.connection = connection;
@@ -76,7 +77,9 @@ class DDPSubscriptionLink extends ApolloLink {
     this.clientContextKey = clientContextKey;
 
     this.subscriptionObservers = new Map();
-    this.ddpObserver = ddpObserver || createClientStreamObserver(this.connection._stream);
+    this.ddpObserver = socket ?
+      createSocketObserver(socket) :
+      createClientStreamObserver(this.connection._stream);
 
     this.ddpSubscription = this.ddpObserver
       .subscribe({

@@ -45,7 +45,19 @@ function createClientStreamObserver(stream) {
   });
 }
 
+function createSocketObserver(socket) {
+  return new Observable((observer) => {
+    const event = 'message:in';
+    const listener = message => observer.next(message);
+
+    socket.on(event, listener);
+
+    return () => socket.off(event, listener);
+  });
+}
+
 module.exports = {
   createClientStreamObserver,
+  createSocketObserver,
   filterGraphQLMessages,
 };

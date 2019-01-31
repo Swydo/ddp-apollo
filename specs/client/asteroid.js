@@ -6,7 +6,6 @@ import { Promise } from 'meteor/promise';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { getDDPLink } from 'apollo-link-ddp';
-import { Observable } from 'apollo-link';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
 describe('Using Asteroid', function () {
@@ -22,13 +21,9 @@ describe('Using Asteroid', function () {
       endpoint: 'ws://localhost:3000/websocket',
     });
 
-    const ddpObserver = new Observable((observer) => {
-      asteroid.ddp.socket.on('message:in', message => observer.next(message));
-    });
-
     this.link = getDDPLink({
       connection: asteroid,
-      ddpObserver,
+      socket: asteroid.ddp.socket,
     });
 
     this.client = new ApolloClient({
