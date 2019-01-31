@@ -31,4 +31,3 @@ describe('MeteorAuthLink', function () {
     });
   });
 });
-
