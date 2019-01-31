@@ -33,8 +33,7 @@ new DDPLink({
 });
 ```
 
-## Using with asteroid
-If you are using [asteroid](https://github.com/mondora/asteroid) you can also use DDP-Apollo!
+## Setup with [Asteroid](https://github.com/mondora/asteroid)
 
 ```javascript
 const Asteroid = createClass();
@@ -42,12 +41,31 @@ const asteroid = new Asteroid({
     endpoint: 'ws://localhost:3000/websocket',
 });
 
-const ddpObserver = new Observable((observer) => {
-    asteroid.ddp.socket.on('message:in', message => observer.next(message));
-});
-
 const link = new DDPLink({
     connection: asteroid,
-    ddpObserver,
+    socket: asteroid.ddp.socket,
+    subscriptionIdKey: 'id',
+});
+```
+
+## Setup with [SimpleDDP](https://github.com/Gregivy/simpleddp)
+
+```javascript
+const SimpleDDP = require('simpleddp');
+
+const ddp = new SimpleDDP({
+    endpoint: 'ws://localhost:3000/websocket',
+    SocketConstructor: global.WebSocket,
+});
+
+// SimpleDDP has a different API than the default DDP client
+// We need to map some functions to a format which the DDP link understands
+ddp.apply = ddp.call;
+ddp.subscribe = (pub, ...args) => ddp.sub(pub, args);
+
+this.link = getDDPLink({
+    connection: ddp,
+    socket: ddp.ddpConnection.socket,
+    subscriptionIdKey: 'subid',
 });
 ```
