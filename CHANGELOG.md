@@ -1,3 +1,7 @@
+## NEXT
+
+- Move client code to stand-alone npm package [#207](https://github.com/Swydo/ddp-apollo/pull/207)
+
 ## 1.4.0
 
 - Add HTTP support [#168](https://github.com/Swydo/ddp-apollo/pull/168)
