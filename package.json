@@ -29,7 +29,7 @@
   "scripts": {
     "doctoc": "doctoc ./README.md",
     "eslint": "eslint ./lib ./specs",
-    "publish": "meteor npm install && meteor npm run eslint -s && meteor npm run doctoc -s && rm -rf ./node_modules && rm -rf ./package-lock.json && rm -rf ./test && meteor publish",
+    "publish": "meteor npm install && meteor npm run eslint -s && meteor npm run doctoc -s && rm -rf ./node_modules && rm -rf ./package-lock.json && rm -rf ./test && meteor publish && cd ./packages/apollo-link-ddp && meteor npm publish",
     "setup-test": "rm -rf ./test && meteor create --bare test && cd test && meteor npm i --save selenium-webdriver@3 chromedriver @babel/runtime@7.2.0",
     "test": "meteor npm run setup-test && cd test && METEOR_PACKAGE_DIRS=../ TEST_BROWSER_DRIVER=chrome meteor test-packages --once --driver-package meteortesting:mocha ../",
     "test-watch": "meteor npm run setup-test && cd test && TEST_WATCH=1 METEOR_PACKAGE_DIRS=../ TEST_BROWSER_DRIVER=chrome meteor test-packages --driver-package meteortesting:mocha ../"

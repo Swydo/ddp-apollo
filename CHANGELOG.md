@@ -1,4 +1,4 @@
-## NEXT
+## 2.0.0
 
 - Move client code to stand-alone npm package [#207](https://github.com/Swydo/ddp-apollo/pull/207)
 
