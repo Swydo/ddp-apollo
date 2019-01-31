@@ -1,4 +1,4 @@
-/* eslint-disable prefer-arrow-callback, func-names */
+/* eslint-disable prefer-arrow-callback, func-names, import/named */
 /* eslint-env mocha */
 import { expect } from 'chai';
 import DDPLink, {
