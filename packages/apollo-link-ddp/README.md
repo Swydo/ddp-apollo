@@ -25,6 +25,7 @@ export const client = new ApolloClient ({
 - `method`: The name of the method. Default `__graphql`.
 - `publication`: The name of the publication. Default `__graphql-subscriptions`.
 - `ddpRetry`: Retry failed DDP method calls. Default `true`. Switch off and use [apollo-link-retry](https://www.npmjs.com/package/apollo-link-retry) for more control.
+- `socket`: Optionally pass a socket to listen to for messages. This makes it easy to integrate with non-Meteor DDP clients.
 
 ```javascript
 // Pass options to the DDPLink constructor
@@ -49,6 +50,7 @@ const link = new DDPLink({
 ```
 
 ## Setup with [SimpleDDP](https://github.com/Gregivy/simpleddp)
+DDP-Apollo works with SimpleDDP version 2 and up.
 
 ```javascript
 const SimpleDDP = require('simpleddp');
@@ -58,7 +60,7 @@ const connection = new SimpleDDP({
     SocketConstructor: global.WebSocket,
 });
 
-this.link = getDDPLink({
+this.link = new DDPLink({
     connection: connection,
     socket: connection.ddpConnection.socket,
 });
