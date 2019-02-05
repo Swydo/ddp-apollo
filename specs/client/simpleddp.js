@@ -16,20 +16,14 @@ describe('Using SimpleDDP', function () {
     // eslint-disable-next-line global-require
     const SimpleDDP = require('simpleddp');
 
-    const ddp = new SimpleDDP({
+    const connection = new SimpleDDP({
       endpoint: 'ws://localhost:3000/websocket',
       SocketConstructor: global.WebSocket,
     });
 
-    // SimpleDDP has a different API than the default DDP client
-    // We need to map some functions to a format which the DDP link understands
-    ddp.apply = ddp.call;
-    ddp.subscribe = (pub, ...args) => ddp.sub(pub, args);
-
     this.link = getDDPLink({
-      connection: ddp,
-      socket: ddp.ddpConnection.socket,
-      subscriptionIdKey: 'subid',
+      connection,
+      socket: connection.ddpConnection.socket,
     });
 
     this.client = new ApolloClient({
@@ -67,7 +61,7 @@ describe('Using SimpleDDP', function () {
         },
       });
 
-      this.link.subscriptionLink.connection.call('ddp-apollo/publish', [FOO_CHANGED_TOPIC, message]);
+      this.link.subscriptionLink.connection.call('ddp-apollo/publish', FOO_CHANGED_TOPIC, message);
     });
   });
 });
