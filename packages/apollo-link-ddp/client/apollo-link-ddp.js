@@ -80,9 +80,9 @@ class DDPSubscriptionLink extends ApolloLink {
     this.subscriptionIdKey = subscriptionIdKey;
 
     this.subscriptionObservers = new Map();
-    this.ddpObserver = socket ?
-      createSocketObserver(socket) :
-      createClientStreamObserver(this.connection._stream);
+    this.ddpObserver = socket
+      ? createSocketObserver(socket)
+      : createClientStreamObserver(this.connection._stream);
 
     this.ddpSubscription = this.ddpObserver
       .subscribe({

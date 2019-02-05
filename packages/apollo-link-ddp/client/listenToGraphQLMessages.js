@@ -3,9 +3,9 @@ const { GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE } = require('../common/defaults');
 
 function filterGraphQLMessages(callback) {
   return (message) => {
-    const data = typeof message === 'string' ?
-      JSON.parse(message) :
-      message;
+    const data = typeof message === 'string'
+      ? JSON.parse(message)
+      : message;
 
     const {
       type,
