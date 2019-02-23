@@ -1,4 +1,4 @@
-import { getMainDefinition } from 'apollo-utilities';
+const { getMainDefinition } = require('apollo-utilities');
 
 const isSubscription = ({ query }) => {
   const { kind, operation } = getMainDefinition(query);
