@@ -1,10 +1,8 @@
-const { getOperationAST } = require('graphql');
+import { getMainDefinition } from 'apollo-utilities';
 
-const isSubscription = (operation) => {
-  const { query, operationName } = operation;
-  const operationAST = getOperationAST(query, operationName);
-
-  return !!operationAST && operationAST.operation === 'subscription';
+const isSubscription = ({ query }) => {
+  const { kind, operation } = getMainDefinition(query);
+  return kind === 'OperationDefinition' && operation === 'subscription';
 };
 
 module.exports = isSubscription;
