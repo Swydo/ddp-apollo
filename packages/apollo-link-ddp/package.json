@@ -4,7 +4,8 @@
   "description": "Apollo Link using DDP",
   "main": "index.js",
   "peerDependencies": {
-    "apollo-link": "^1.0.0"
+    "apollo-link": "^1.0.0",
+    "apollo-utilities": "^1.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
