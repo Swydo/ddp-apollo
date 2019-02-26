@@ -1,5 +1,6 @@
 ## vNEXT
- - Expose `createGraphQLPublication` on the server. (https://github.com/Swydo/ddp-apollo/pull/276)
+
+- Expose `createGraphQLPublication` on the server. (https://github.com/Swydo/ddp-apollo/pull/276)
 
 ## 2.0.0
 
