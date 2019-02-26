@@ -1,3 +1,6 @@
+## 2.1.0
+- The client module has been marked as lazy, so if using the Meteor package, `DDPLink` will only be included in the bundle when `import`ed. (https://github.com/Swydo/ddp-apollo/pull/277)
+
 ## 2.0.0
 
 - Move client code to stand-alone npm package [#207](https://github.com/Swydo/ddp-apollo/pull/207)
