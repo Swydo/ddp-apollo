@@ -3,8 +3,10 @@ This is the client part of the DDP setup for Apollo. It works out of the box in 
 
 ## Installation
 ```
-meteor npm install --save apollo-link-ddp apollo-link graphql
+meteor npm install --save apollo-link-ddp apollo-link graphql apollo-utilities
 ```
+
+Please note that [`apollo-utilities`](https://www.npmjs.com/package/apollo-utilities) is a peer dependency of this package.
 
 ## Setup
 This packages gives you a `DDPLink` for your Apollo Client. Creating an Apollo Client is the same as with any other Apollo Link.
