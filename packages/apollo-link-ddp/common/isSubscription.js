@@ -1,10 +1,7 @@
-const { getOperationAST } = require('graphql');
+const isSubscriptionDefinition = ({ kind, operation }) => kind === 'OperationDefinition' && operation === 'subscription';
 
-const isSubscription = (operation) => {
-  const { query, operationName } = operation;
-  const operationAST = getOperationAST(query, operationName);
-
-  return !!operationAST && operationAST.operation === 'subscription';
-};
+const isSubscription = ({ query }) => query
+  && query.definitions
+  && query.definitions.some(isSubscriptionDefinition);
 
 module.exports = isSubscription;
