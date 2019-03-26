@@ -260,6 +260,42 @@ describe('DDPSubscriptionLink', function () {
         }, 100);
       });
     });
+
+    it('continues after a graphql error', function (done) {
+      const loops = 5;
+      let successCount = 0;
+      let errorCount = 0;
+      const operation = {
+        query: gql`subscription { fooSub }`,
+      };
+      const value = 'bar';
+
+      const observer = this.link.request(operation);
+
+      const subscription = observer.subscribe({
+        next: data => (data.errors ? ++errorCount : ++successCount),
+      });
+
+      const promises = [];
+
+      for (let i = 0; i < loops; i += 1) {
+        promises.push(callPromise('ddp-apollo/publish', FOO_CHANGED_TOPIC, { fooSub: i % 2 === 0 ? null : value }));
+      }
+
+      Promise.all(promises).then(() => {
+        Meteor.setTimeout(() => {
+          try {
+            chai.expect(successCount + errorCount, 'number of next calls').to.equal(loops);
+            chai.expect(successCount, 'number of succesfull loops').to.equal(2);
+            chai.expect(errorCount, 'number of errors').to.equal(loops - successCount);
+            subscription.unsubscribe();
+            done();
+          } catch (e) {
+            done(e);
+          }
+        }, 100);
+      });
+    });
   });
 });
 
