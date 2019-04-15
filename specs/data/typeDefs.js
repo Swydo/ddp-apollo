@@ -13,6 +13,6 @@ type Mutation {
 }
 
 type Subscription {
-  fooSub: String
+  fooSub: String!
 }
 `];

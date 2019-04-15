@@ -1,5 +1,9 @@
 ## vNEXT
 
+-
+
+## 2.0.1
+
 - Expose `createGraphQLPublication` on the server [#276](https://github.com/Swydo/ddp-apollo/pull/276)
 - The client module has been marked as lazy, so if using the Meteor package, `DDPLink` will only be included in the bundle when `import`ed [#277](https://github.com/Swydo/ddp-apollo/pull/277)
 - Remove `graphql` dependency from apollo-link-ddp, saving ~250kb [ca42d2cb1](https://github.com/Swydo/ddp-apollo/commit/ca42d2cb1c4a2f73755ecb542b1ee88db3b6c9ac)
