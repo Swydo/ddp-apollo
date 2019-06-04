@@ -2,6 +2,10 @@
 
 -
 
+## 2.1.0
+
+- Compile apollo-link-ddp browser code with babel [#300](https://github.com/Swydo/ddp-apollo/pull/300)
+
 ## 2.0.1
 
 - Expose `createGraphQLPublication` on the server [#276](https://github.com/Swydo/ddp-apollo/pull/276)
