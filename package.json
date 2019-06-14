@@ -10,7 +10,7 @@
     "apollo-client": "2.6.2",
     "apollo-link": "^1.0.0",
     "apollo-link-ddp": "file:packages/apollo-link-ddp",
-    "apollo-link-http": "^1.2.0",
+    "apollo-link-http": "^1.5.15",
     "asteroid": "^2.0.3",
     "body-parser": "^1.18.2",
     "chai": "4.1.2",
