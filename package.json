@@ -7,10 +7,10 @@
   "dependencies": {},
   "devDependencies": {
     "apollo-cache-inmemory": "1.6.2",
-    "apollo-client": "2.6.2",
+    "apollo-client": "2.6.3",
     "apollo-link": "^1.0.0",
     "apollo-link-ddp": "file:packages/apollo-link-ddp",
-    "apollo-link-http": "^1.2.0",
+    "apollo-link-http": "^1.5.15",
     "asteroid": "^2.0.3",
     "body-parser": "^1.18.2",
     "chai": "4.1.2",
@@ -22,7 +22,7 @@
     "graphql": "14.3.1",
     "graphql-subscriptions": "1.1.0",
     "graphql-tag": "2.10.1",
-    "graphql-tools": "4.0.4",
+    "graphql-tools": "4.0.5",
     "simpleddp": "^2.0.0",
     "sinon": "7.3.2"
   },
