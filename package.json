@@ -23,7 +23,7 @@
     "graphql-subscriptions": "1.1.0",
     "graphql-tag": "2.10.1",
     "graphql-tools": "4.0.5",
-    "simpleddp": "^2.0.0",
+    "simpleddp": "^2.1.0",
     "sinon": "7.3.2"
   },
   "scripts": {
