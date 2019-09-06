@@ -8,7 +8,7 @@
   "devDependencies": {
     "apollo-cache-inmemory": "1.6.3",
     "apollo-client": "2.6.4",
-    "apollo-link": "^1.2.12",
+    "apollo-link": "^1.2.13",
     "apollo-link-ddp": "file:packages/apollo-link-ddp",
     "apollo-link-http": "^1.5.16",
     "asteroid": "^2.0.3",
