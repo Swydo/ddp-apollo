@@ -22,7 +22,7 @@
     "graphql": "14.5.8",
     "graphql-subscriptions": "1.1.0",
     "graphql-tag": "2.10.1",
-    "graphql-tools": "4.0.5",
+    "graphql-tools": "4.0.6",
     "simpleddp": "^2.1.0",
     "sinon": "7.4.0"
   },
