@@ -273,7 +273,7 @@ describe('DDPSubscriptionLink', function () {
       const observer = this.link.request(operation);
 
       const subscription = observer.subscribe({
-        next: data => (data.errors ? ++errorCount : ++successCount),
+        next: (data) => (data.errors ? ++errorCount : ++successCount),
       });
 
       const promises = [];

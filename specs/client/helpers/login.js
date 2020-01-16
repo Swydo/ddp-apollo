@@ -4,7 +4,7 @@ export function loginWithUserId(userId) {
   return new Promise((resolve, reject) => {
     Accounts.callLoginMethod({
       methodArguments: [{ userId }],
-      userCallback: err => (err ? reject(err) : resolve()),
+      userCallback: (err) => (err ? reject(err) : resolve()),
     });
   });
 }
