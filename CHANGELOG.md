@@ -2,6 +2,10 @@
 
 -
 
+## 2.2.0
+
+- Support async iterators in latest Node (and Meteor) versions [#351](https://github.com/Swydo/ddp-apollo/pull/51)
+
 ## 2.1.0
 
 - Compile apollo-link-ddp browser code with babel [#300](https://github.com/Swydo/ddp-apollo/pull/300)
