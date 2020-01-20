@@ -15,6 +15,14 @@ import { typeDefs } from '../data/typeDefs';
 import { resolvers } from '../data/resolvers';
 import { reset } from './helpers';
 
+async function callMethod(...args) {
+  return new Promise((resolve, reject) => {
+    Meteor.apply(DEFAULT_METHOD, args, (err, result) => {
+      err ? reject(err) : resolve(result);
+    });
+  });
+}
+
 describe('#setup', function () {
   beforeEach(function () {
     reset();
@@ -43,24 +51,19 @@ describe('#setup', function () {
       Meteor.call(DEFAULT_METHOD, done);
     });
 
-    it('should return data', function (done) {
+    it('should return data', async function () {
       const request = {
         query: gql`{ foo }`,
       };
 
-      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
-        try {
-          chai.expect(data.foo).to.equal('bar');
-          done(err);
-        } catch (e) {
-          done(e);
-        }
-      });
+      const { data } = await callMethod(request);
+
+      chai.expect(data.foo).to.equal('bar');
     });
   });
 
   describe('context', function () {
-    it('accepts an object', async function (done) {
+    it('accepts an object', async function () {
       const schema = makeExecutableSchema({
         resolvers: {
           Query: {
@@ -81,17 +84,12 @@ describe('#setup', function () {
 
       await setup({ schema, context });
 
-      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
-        try {
-          chai.expect(data.foo).to.equal('baz:qux');
-          done(err);
-        } catch (e) {
-          done(e);
-        }
-      });
+      const { data } = await callMethod(request);
+
+      chai.expect(data.foo).to.equal('baz:qux');
     });
 
-    it('accepts a function', async function (done) {
+    it('accepts a function', async function () {
       const schema = makeExecutableSchema({
         resolvers: {
           Query: {
@@ -112,17 +110,12 @@ describe('#setup', function () {
 
       await setup({ schema, context });
 
-      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
-        try {
-          chai.expect(data.foo).to.equal('baz:qux');
-          done(err);
-        } catch (e) {
-          done(e);
-        }
-      });
+      const { data } = await callMethod(request);
+
+      chai.expect(data.foo).to.equal('baz:qux');
     });
 
-    it('accepts an async function', async function (done) {
+    it('accepts an async function', async function () {
       const schema = makeExecutableSchema({
         resolvers: {
           Query: {
@@ -145,14 +138,9 @@ describe('#setup', function () {
 
       await setup({ schema, context });
 
-      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
-        try {
-          chai.expect(data.foo).to.equal('baz:qux');
-          done(err);
-        } catch (e) {
-          done(e);
-        }
-      });
+      const { data } = await callMethod(request);
+
+      chai.expect(data.foo).to.equal('baz:qux');
     });
 
     it('leaves the original values alone', async function (done) {
@@ -175,7 +163,7 @@ describe('#setup', function () {
 
       await setup({ schema, context });
 
-      Meteor.apply(DEFAULT_METHOD, [request], () => {});
+      await callMethod(request);
     });
   });
 
@@ -196,7 +184,7 @@ describe('#setup', function () {
       createGraphQLMethod({ schema, context })(request).catch(done);
     });
 
-    it('returns a modified context', function (done) {
+    it('returns a modified context', async function () {
       const request = { query: gql`{ foo }` };
 
       const schema = makeExecutableSchema({
@@ -210,15 +198,12 @@ describe('#setup', function () {
 
       const context = () => ({ foo: 'baz', bar: 'qux' });
 
-      createGraphQLMethod({ schema, context })(request)
-        .then(({ data }) => {
-          chai.expect(data.foo).to.equal('baz:qux');
-          done();
-        })
-        .catch(done);
+      const { data } = await createGraphQLMethod({ schema, context })(request);
+
+      chai.expect(data.foo).to.equal('baz:qux');
     });
 
-    it('accepts a ddp context param', function (done) {
+    it('accepts a ddp context param', async function () {
       const request = { query: gql`{ foo }` };
 
       const schema = makeExecutableSchema({
@@ -230,12 +215,9 @@ describe('#setup', function () {
 
       const context = (_, clientContext) => clientContext;
 
-      createGraphQLMethod({ schema, context })(request, { foo: 'bar' })
-        .then(({ data }) => {
-          chai.expect(data.foo).to.equal('bar');
-          done();
-        })
-        .catch(done);
+      const { data } = await createGraphQLMethod({ schema, context })(request, { foo: 'bar' });
+
+      chai.expect(data.foo).to.equal('bar');
     });
   });
 
@@ -264,35 +246,25 @@ describe('#setup', function () {
       await setup({ gateway });
     });
 
-    it('returns data via method', function (done) {
+    it('returns data via method', async function () {
       const request = {
         query: gql`{ foo }`,
       };
 
-      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
-        try {
-          chai.expect(data.foo).to.equal('bar');
-          done(err);
-        } catch (e) {
-          done(e);
-        }
-      });
+      const { data } = await callMethod(request);
+
+      chai.expect(data.foo).to.equal('bar');
     });
 
-    it('supports context with us', function (done) {
+    it('supports context with us', async function () {
       const request = {
         query: gql`{ contextToString }`,
       };
 
-      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
-        try {
-          chai.expect(data.contextToString).to.be.ok;
-          chai.expect(JSON.parse(data.contextToString)).to.have.property('userId');
-          done(err);
-        } catch (e) {
-          done(e);
-        }
-      });
+      const { data } = await callMethod(request);
+
+      chai.expect(data.contextToString).to.be.ok;
+      chai.expect(JSON.parse(data.contextToString)).to.have.property('userId');
     });
   });
 });
