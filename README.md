@@ -100,7 +100,8 @@ setup({
 ```
 
 ### Options
-- `schema`: The GraphQL schema. Default `undefined`. Required.
+- `schema`: The GraphQL schema. Default `undefined`. Required when no `gateway` is provided.
+- `gateway`: An [Apollo Gateway](https://github.com/apollographql/apollo-server/tree/master/packages/apollo-gateway). Default `undefined`. Required when no `schema` is provided.
 - `context`: A custom context. Either an object or a function returning an object. Optional.
 - `method`: The name of the method. Default `__graphql`.
 - `publication`: The name of the publication. Default `__graphql-subscriptions`.
@@ -128,6 +129,8 @@ setup({
 
 ## GraphQL subscriptions
 Subscription support is baked into this package. Simply add the subscriptions to your schema and resolvers and everything works.
+
+*Note: [Apollo Gateway](https://github.com/apollographql/apollo-server/tree/master/packages/apollo-gateway) does not yet support Subscriptions.*
 
 ```graphql
 # schema.graphql
@@ -257,7 +260,8 @@ createGraphQLPublication({ schema });
 ```
 
 #### Options
-- `schema`: The GraphQL schema. Default `undefined`. Required.
+- `schema`: The GraphQL schema. Default `undefined`. Required when no `gateway` is provided.
+- `gateway`: An [Apollo Gateway](https://github.com/apollographql/apollo-server/tree/master/packages/apollo-gateway). Default `undefined`. Required when no `schema` is provided.
 - `context`: A custom context. Either an object or a function returning an object. Optional.
 - `path`: The name of the HTTP path. Default `/graphql`.
 - `engine`: An Engine instance, in case you want monitoring on your HTTP endpoint. Optional.
