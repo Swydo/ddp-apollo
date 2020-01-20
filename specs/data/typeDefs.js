@@ -7,6 +7,7 @@ type Query {
   isDDP: Boolean
   meteorUserId: String
   ddpContextValue: String
+  contextToString: String
   somethingBad: String
 }
 

@@ -278,5 +278,21 @@ describe('#setup', function () {
         }
       });
     });
+
+    it('supports context with us', function (done) {
+      const request = {
+        query: gql`{ contextToString }`,
+      };
+
+      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
+        try {
+          chai.expect(data.contextToString).to.be.ok;
+          chai.expect(JSON.parse(data.contextToString)).to.have.property('userId');
+          done(err);
+        } catch (e) {
+          done(e);
+        }
+      });
+    });
   });
 });
