@@ -1,4 +1,6 @@
-export const typeDefs = [`
+import gql from 'graphql-tag';
+
+export const typeDefs = gql`
 type Query {
   foo: String
   userId: String
@@ -15,4 +17,4 @@ type Mutation {
 type Subscription {
   fooSub: String!
 }
-`];
+`;

@@ -3,6 +3,8 @@
 import chai from 'chai';
 import { makeExecutableSchema } from 'graphql-tools';
 import gql from 'graphql-tag';
+import { ApolloGateway, LocalGraphQLDataSource } from '@apollo/gateway';
+import { buildFederatedSchema } from '@apollo/federation';
 import { DEFAULT_METHOD } from 'apollo-link-ddp';
 
 import { setup } from '../../lib/server/setup';
@@ -234,6 +236,47 @@ describe('#setup', function () {
           done();
         })
         .catch(done);
+    });
+  });
+
+  describe('gateway', function () {
+    beforeEach(async function () {
+      const {
+        Subscription,
+        ...resolversWithoutSubscriptions
+      } = resolvers;
+
+      const typeDefsWithoutSubscriptions = {
+        ...typeDefs,
+        definitions: typeDefs.definitions.filter((def) => def.name.value !== 'Subscription'),
+      };
+
+      const schema = buildFederatedSchema([{
+        resolvers: resolversWithoutSubscriptions,
+        typeDefs: typeDefsWithoutSubscriptions,
+      }]);
+
+      const gateway = new ApolloGateway({
+        serviceList: [{ name: 'local', url: 'foo' }],
+        buildService: () => new LocalGraphQLDataSource(schema),
+      });
+
+      await setup({ gateway });
+    });
+
+    it('returns data via method', function (done) {
+      const request = {
+        query: gql`{ foo }`,
+      };
+
+      Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
+        try {
+          chai.expect(data.foo).to.equal('bar');
+          done(err);
+        } catch (e) {
+          done(e);
+        }
+      });
     });
   });
 });
