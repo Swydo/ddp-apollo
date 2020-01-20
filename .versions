@@ -23,7 +23,7 @@ fetch@0.1.1
 geojson-utils@1.0.10
 id-map@1.1.0
 inter-process-messaging@0.1.0
-local-test:swydo:ddp-apollo@2.2.0
+local-test:swydo:ddp-apollo@3.0.0-beta.0
 localstorage@1.2.0
 logging@1.1.20
 meteor@1.9.3
@@ -49,7 +49,7 @@ retry@1.1.0
 routepolicy@1.1.0
 service-configuration@1.0.11
 socket-stream-client@0.2.2
-swydo:ddp-apollo@2.2.0
+swydo:ddp-apollo@3.0.0-beta.0
 tracker@1.2.0
 underscore@1.0.10
 webapp@1.8.0
