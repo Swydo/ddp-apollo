@@ -15,7 +15,7 @@ export function reset() {
 }
 
 Meteor.methods({
-  'ddp-apollo/setup': function setupDdpApollo() {
+  'ddp-apollo/setup': async function setupDdpApollo() {
     reset();
 
     const schema = makeExecutableSchema({
@@ -29,12 +29,12 @@ Meteor.methods({
       ddpContext: clientContext,
     });
 
-    setup({
+    await setup({
       schema,
       context,
     });
 
-    setupHttpEndpoint({
+    await setupHttpEndpoint({
       schema,
       context,
     });

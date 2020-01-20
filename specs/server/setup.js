@@ -5,7 +5,8 @@ import { makeExecutableSchema } from 'graphql-tools';
 import gql from 'graphql-tag';
 import { DEFAULT_METHOD } from 'apollo-link-ddp';
 
-import { setup, DDP_APOLLO_SCHEMA_REQUIRED } from '../../lib/server/setup';
+import { setup } from '../../lib/server/setup';
+import { DDP_APOLLO_SCHEMA_REQUIRED } from '../../lib/server/initSchema';
 import { createGraphQLMethod } from '../../lib/server/createGraphQLMethod';
 
 import { typeDefs } from '../data/typeDefs';
@@ -17,9 +18,9 @@ describe('#setup', function () {
     reset();
   });
 
-  it('requires a schema', function () {
+  it('requires a schema', async function () {
     try {
-      setup();
+      await setup();
       throw new Error('Setup without schema should fail!');
     } catch (e) {
       chai.expect(e.message).to.equal(DDP_APOLLO_SCHEMA_REQUIRED);
@@ -27,13 +28,13 @@ describe('#setup', function () {
   });
 
   describe('method', function () {
-    beforeEach(function () {
+    beforeEach(async function () {
       const schema = makeExecutableSchema({
         resolvers,
         typeDefs,
       });
 
-      setup({ schema });
+      await setup({ schema });
     });
 
     it('should add a method', function (done) {
@@ -57,7 +58,7 @@ describe('#setup', function () {
   });
 
   describe('context', function () {
-    it('accepts an object', function (done) {
+    it('accepts an object', async function (done) {
       const schema = makeExecutableSchema({
         resolvers: {
           Query: {
@@ -72,11 +73,11 @@ describe('#setup', function () {
         bar: 'qux',
       };
 
-      setup({ schema, context });
-
       const request = {
         query: gql`{ foo }`,
       };
+
+      await setup({ schema, context });
 
       Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
         try {
@@ -88,7 +89,7 @@ describe('#setup', function () {
       });
     });
 
-    it('accepts a function', function (done) {
+    it('accepts a function', async function (done) {
       const schema = makeExecutableSchema({
         resolvers: {
           Query: {
@@ -103,11 +104,11 @@ describe('#setup', function () {
         bar: 'qux',
       });
 
-      setup({ schema, context });
-
       const request = {
         query: gql`{ foo }`,
       };
+
+      await setup({ schema, context });
 
       Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
         try {
@@ -119,7 +120,7 @@ describe('#setup', function () {
       });
     });
 
-    it('accepts an async function', function (done) {
+    it('accepts an async function', async function (done) {
       const schema = makeExecutableSchema({
         resolvers: {
           Query: {
@@ -136,11 +137,11 @@ describe('#setup', function () {
         bar: await getQux(),
       });
 
-      setup({ schema, context });
-
       const request = {
         query: gql`{ foo }`,
       };
+
+      await setup({ schema, context });
 
       Meteor.apply(DEFAULT_METHOD, [request], function (err, { data }) {
         try {
@@ -152,7 +153,7 @@ describe('#setup', function () {
       });
     });
 
-    it('leaves the original values alone', function (done) {
+    it('leaves the original values alone', async function (done) {
       const schema = makeExecutableSchema({
         resolvers: {
           Query: {
@@ -168,9 +169,9 @@ describe('#setup', function () {
 
       const context = { foo: 'baz' };
 
-      setup({ schema, context });
-
       const request = { query: gql`{ foo }` };
+
+      await setup({ schema, context });
 
       Meteor.apply(DEFAULT_METHOD, [request], () => {});
     });
