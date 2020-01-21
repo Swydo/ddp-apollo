@@ -253,7 +253,7 @@ describe('#setup', function () {
       chai.expect(data.foo).to.equal('bar');
     });
 
-    it('supports context with us', async function () {
+    it('supports context with userId', async function () {
       const request = {
         query: gql`{ contextToString }`,
       };
