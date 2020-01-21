@@ -14,13 +14,10 @@ import { createGraphQLMethod } from '../../lib/server/createGraphQLMethod';
 import { typeDefs } from '../data/typeDefs';
 import { resolvers } from '../data/resolvers';
 import { reset } from './helpers';
+import { callPromise } from '../client/helpers/callPromise';
 
 async function callMethod(...args) {
-  return new Promise((resolve, reject) => {
-    Meteor.apply(DEFAULT_METHOD, args, (err, result) => {
-      err ? reject(err) : resolve(result);
-    });
-  });
+  return callPromise.apply(this, [DEFAULT_METHOD, ...args]);
 }
 
 describe('#setup', function () {
