@@ -21,7 +21,6 @@ Checkout this [starter kit](https://github.com/jamiter/meteor-starter-kit) to se
 *Note: DDP-Apollo works with all front-ends, not just React*
 
 [![Build Status](https://travis-ci.org/Swydo/ddp-apollo.svg?branch=master)](https://travis-ci.org/Swydo/ddp-apollo)
-[![Greenkeeper badge](https://badges.greenkeeper.io/Swydo/ddp-apollo.svg)](https://greenkeeper.io/)
 
 ## Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
