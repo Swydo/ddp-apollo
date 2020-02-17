@@ -2,6 +2,10 @@
 
 -
 
+## 3.0.0
+
+- Add support for Apollo Gateway [#356](https://github.com/Swydo/ddp-apollo/pull/356)
+
 ## 2.2.0
 
 - Support async iterators in latest Node (and Meteor) versions [#351](https://github.com/Swydo/ddp-apollo/pull/51)
