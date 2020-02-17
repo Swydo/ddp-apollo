@@ -7,9 +7,9 @@ import { ApolloGateway, LocalGraphQLDataSource } from '@apollo/gateway';
 import { buildFederatedSchema } from '@apollo/federation';
 import { DEFAULT_METHOD } from 'apollo-link-ddp';
 
-import { setup } from '../../lib/server/setup';
-import { DDP_APOLLO_SCHEMA_REQUIRED } from '../../lib/server/initSchema';
-import { createGraphQLMethod } from '../../lib/server/createGraphQLMethod';
+import { setup } from '../../src/setup';
+import { DDP_APOLLO_SCHEMA_REQUIRED } from '../../src/initSchema';
+import { createGraphQLMethod } from '../../src/createGraphQLMethod';
 
 import { typeDefs } from '../data/typeDefs';
 import { resolvers } from '../data/resolvers';

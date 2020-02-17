@@ -4,7 +4,7 @@ import {
   DEFAULT_PUBLICATION,
 } from 'apollo-link-ddp';
 import { pubsub } from '../data/pubsub';
-import { setup, setupHttpEndpoint } from '../../lib/server/setup';
+import { setup, setupHttpEndpoint } from '../../src/setup';
 
 import { typeDefs } from '../data/typeDefs';
 import { resolvers } from '../data/resolvers';
