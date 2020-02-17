@@ -1,57 +1,34 @@
-import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import {
-  DEFAULT_METHOD,
   DEFAULT_PATH,
 } from 'apollo-link-ddp';
-import { createGraphQLMethod } from './createGraphQLMethod';
+import { initSchema } from './initSchema';
+import { createExecutor } from './createExecutor';
 import { createGraphQLPublication } from './createGraphQLPublication';
 import { createGraphQLMiddleware } from './createGraphQLMiddleware';
 import { meteorAuthMiddleware } from './meteorAuthMiddleware';
 
-export const DDP_APOLLO_SCHEMA_REQUIRED = 'DDP_APOLLO_SCHEMA_REQUIRED';
-
-export function setup({
+export async function setupHttpEndpoint({
   schema,
-  method = DEFAULT_METHOD,
-  publication,
-  context,
-} = {}) {
-  if (!schema) {
-    throw new Error(DDP_APOLLO_SCHEMA_REQUIRED);
-  }
-
-  Meteor.methods({
-    [method]: createGraphQLMethod({
-      schema,
-      context,
-    }),
-  });
-
-  createGraphQLPublication({
-    schema,
-    publication,
-    context,
-  });
-}
-
-export { createGraphQLPublication };
-
-export function setupHttpEndpoint({
-  schema,
+  gateway,
   path = DEFAULT_PATH,
   context,
   engine,
   jsonParser,
   authMiddleware = meteorAuthMiddleware,
 } = {}) {
-  if (!schema) {
-    throw new Error(DDP_APOLLO_SCHEMA_REQUIRED);
-  }
+  const {
+    schema: initializedSchema,
+    executor: gatewayExecutor,
+  } = await initSchema({
+    schema,
+    gateway,
+  });
 
   const graphQLMiddleware = createGraphQLMiddleware({
-    schema,
+    schema: initializedSchema,
     context,
+    execute: createExecutor(gatewayExecutor),
   });
 
   if (engine && engine.expressMiddleware) {
@@ -74,3 +51,7 @@ export function setupHttpEndpoint({
 
   WebApp.connectHandlers.use(path, (req, res, next) => graphQLMiddleware(req, res).catch(next));
 }
+
+export {
+  createGraphQLPublication,
+};

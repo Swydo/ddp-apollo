@@ -4,7 +4,7 @@ import {
   DEFAULT_PUBLICATION,
 } from 'apollo-link-ddp';
 import { pubsub } from '../data/pubsub';
-import { setup, setupHttpEndpoint } from '../../lib/server/setup';
+import { setup, setupHttpEndpoint } from '../../src/setup';
 
 import { typeDefs } from '../data/typeDefs';
 import { resolvers } from '../data/resolvers';
@@ -15,7 +15,7 @@ export function reset() {
 }
 
 Meteor.methods({
-  'ddp-apollo/setup': function setupDdpApollo() {
+  'ddp-apollo/setup': async function setupDdpApollo() {
     reset();
 
     const schema = makeExecutableSchema({
@@ -29,12 +29,12 @@ Meteor.methods({
       ddpContext: clientContext,
     });
 
-    setup({
+    await setup({
       schema,
       context,
     });
 
-    setupHttpEndpoint({
+    await setupHttpEndpoint({
       schema,
       context,
     });
