@@ -1,6 +1,6 @@
 {
   "name": "apollo-link-ddp",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "Apollo Link using DDP",
   "main": "src/index.js",
   "browser": "dist/index.js",
