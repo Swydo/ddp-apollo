@@ -26,7 +26,7 @@
     "graphql-tag": "2.10.3",
     "graphql-tools": "4.0.6",
     "simpleddp": "^2.1.0",
-    "sinon": "8.1.1"
+    "sinon": "9.0.0"
   },
   "scripts": {
     "doctoc": "doctoc ./README.md",
