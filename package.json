@@ -6,7 +6,7 @@
   "main": "lib/setup.js",
   "dependencies": {},
   "devDependencies": {
-    "@apollo/federation": "0.12.1",
+    "@apollo/federation": "0.13.2",
     "@apollo/gateway": "0.13.2",
     "apollo-cache-inmemory": "1.6.5",
     "apollo-client": "2.6.8",
