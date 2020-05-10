@@ -8,7 +8,7 @@
   "devDependencies": {
     "@apollo/federation": "0.14.1",
     "@apollo/gateway": "0.14.1",
-    "apollo-cache-inmemory": "1.6.5",
+    "apollo-cache-inmemory": "1.6.6",
     "apollo-client": "2.6.8",
     "apollo-link": "^1.2.13",
     "apollo-link-ddp": "file:packages/apollo-link-ddp",
