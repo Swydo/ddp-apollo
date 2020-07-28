@@ -2,7 +2,7 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import gql from 'graphql-tag';
-import { ApolloLink, Observable } from 'apollo-link';
+import { ApolloLink, Observable } from '@apollo/client';
 import {
   DEFAULT_METHOD,
   DEFAULT_PUBLICATION,

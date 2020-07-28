@@ -10,9 +10,8 @@ meteor npm install --save apollo-link-ddp apollo-link graphql
 This packages gives you a `DDPLink` for your Apollo Client. Creating an Apollo Client is the same as with any other Apollo Link.
 
 ```javascript
-import ApolloClient from 'apollo-client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { DDPLink } from 'apollo-link-ddp';
-import { InMemoryCache } from 'apollo-cache-inmemory';
 
 export const client = new ApolloClient ({
   link: new DDPLink(),

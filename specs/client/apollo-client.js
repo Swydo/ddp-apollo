@@ -3,8 +3,7 @@
 import chai from 'chai';
 import gql from 'graphql-tag';
 import { Promise } from 'meteor/promise';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { getDDPLink } from 'apollo-link-ddp';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
