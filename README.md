@@ -1,12 +1,12 @@
 # DDP-Apollo
-DDP-Apollo leverages the power of DDP for GraphQL queries and subscriptions. Meteor developers do not need an HTTP server or extra websocket connection, because DDP offers all we need and has been well tested over time.
+DDP-Apollo leverages the power of DDP for GraphQL queries and subscriptions. Meteor developers do not need an HTTP server or extra WebSocket connection, because DDP offers all we need and has been well tested over time.
 
 - DDP-Apollo is one of the easiest ways to get GraphQL running for Meteor developers
 - Works with the Meteor accounts packages out of the box, giving a userId in your resolvers
 - Method calls and collection hooks will have `this.userId` when called within your resolvers
 - Doesn’t require an HTTP server to be setup, like with express, koa or hapi
 - Supports GraphQL Subscriptions out-of-the-box
-- Doesn’t require an extra websocket for GraphQL Subscriptions, because DDP already has a websocket
+- Doesn’t require an extra WebSocket for GraphQL Subscriptions, because DDP already has a WebSocket
 - Already have a server setup? Use `DDPSubscriptionLink` stand-alone for just Subscriptions support. [Read more](#using-ddp-only-for-subscriptions)
 
 # Just another Apollo Link
@@ -16,7 +16,7 @@ Because it's "just another Apollo Link":
 - It's front-end agnostic
 
 # Starter Kit
-Checkout this [starter kit](https://github.com/jamiter/meteor-starter-kit) to see Meteor, Apollo, DDP and React all work together.
+Check out this [starter kit](https://github.com/jamiter/meteor-starter-kit) to see Meteor, Apollo, DDP and React all work together.
 
 *Note: DDP-Apollo works with all front-ends, not just React*
 
@@ -44,7 +44,7 @@ Checkout this [starter kit](https://github.com/jamiter/meteor-starter-kit) to se
     - [Options](#options-2)
 - [Sponsor](#sponsor)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- END doctoc generated TOC please keep comment here to allow auto-update -->
 
 ## Installation
 
@@ -199,7 +199,7 @@ export const client = new ApolloClient ({
 ```
 
 ## Rate limiting GraphQL calls
-Meteor supports rate limiting for DDP calls. This means you can rate limit DDP-Apollo as well!
+Meteor supports rate-limiting for DDP calls. This means you can rate limit DDP-Apollo as well!
 
 ```sh
 meteor add ddp-rate-limiter
@@ -221,7 +221,7 @@ DDPRateLimiter.addRule(graphQLMethodCalls, 5, 1000);
 See [DDP Rate Limit documentation](https://docs.meteor.com/api/methods.html#ddpratelimiter).
 
 ## HTTP support
-There can be reasons to use HTTP instead of a Meteor method. There is support for it built in, but it requires a little different setup than the DDP version.
+There can be reasons to use HTTP instead of a Meteor method. There is support for it built-in, but it requires a little different setup than the DDP version.
 
 ### Installation
 We'll need the HTTP link from Apollo and `body-parser` on top of the default dependencies:
