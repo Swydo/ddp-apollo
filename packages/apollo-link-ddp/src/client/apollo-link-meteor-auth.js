@@ -1,4 +1,4 @@
-const { ApolloLink } = require('apollo-link');
+const { ApolloLink } = require('@apollo/client');
 const getLoginToken = require('./getLoginToken');
 
 const meteorAuthLink = new ApolloLink((operation, forward) => {

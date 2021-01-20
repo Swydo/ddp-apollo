@@ -1,4 +1,4 @@
-const { Observable } = require('apollo-link');
+const { Observable } = require('@apollo/client');
 const { GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE } = require('../common/defaults');
 
 function filterGraphQLMessages(callback) {

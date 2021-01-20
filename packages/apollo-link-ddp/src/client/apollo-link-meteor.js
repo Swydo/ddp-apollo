@@ -1,4 +1,4 @@
-const { ApolloLink, split } = require('apollo-link');
+const { ApolloLink, HttpLink, split } = require('@apollo/client');
 const isSubscription = require('../common/isSubscription');
 const { DDPSubscriptionLink } = require('./apollo-link-ddp');
 const { DEFAULT_PATH } = require('../common/defaults');
@@ -7,11 +7,7 @@ const meteorAuthLink = require('./apollo-link-meteor-auth');
 class MeteorLink extends ApolloLink {
   constructor(options = {}) {
     super();
-
-    // Only require HttpLink for people using the HTTP version
-    // eslint-disable-next-line global-require
-    const { HttpLink } = require('apollo-link-http');
-
+    
     const {
       uri = Meteor.absoluteUrl(DEFAULT_PATH),
       httpLink,
