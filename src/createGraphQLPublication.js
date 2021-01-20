@@ -53,7 +53,7 @@ export function createGraphQLPublication({
         this.ready();
 
         // When the Meteor subscriptions stops we should break out of the iterator
-        this.onStop(() => iterator.return());
+        this.onStop(() => iterator.return && iterator.return());
 
         return forAwaitEach(iterator, (graphqlData) => {
           session.socket.send(JSON.stringify({
