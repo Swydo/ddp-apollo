@@ -10,7 +10,7 @@ function createInvocation(options) {
     isSimulation: false,
     setUserId: () => {},
     unblock: () => {},
-    connection: null,
+    connection: {},
     randomSeed: Random.id(),
     ...options,
   });
