@@ -2,6 +2,11 @@
 
 -
 
+## 4.0.0
+- Upgrade to Apollo Client 3 (#392)
+- Avoid attribute errors when accessing `connection` (#368)
+- Verify that return is a function before executing in onStop
+
 ## 3.0.0
 
 - Add support for Apollo Gateway [#356](https://github.com/Swydo/ddp-apollo/pull/356)
