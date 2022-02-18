@@ -21,13 +21,13 @@ export function createExecutor(gatewayExecutor) {
       });
     }
 
-    return execute(
+    return execute({
       schema,
-      query,
-      {},
-      context,
-      variables,
+      document: query,
+      rootValue: {},
+      contextValue: context,
+      variableValues: variables,
       operationName,
-    );
+    });
   };
 }

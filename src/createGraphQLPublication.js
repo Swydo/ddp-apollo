@@ -41,14 +41,14 @@ export function createGraphQLPublication({
 
     Promise.resolve()
       .then(() => createContext({ userId, ddpConnection }, clientContext))
-      .then((completeContext) => subscribe(
+      .then((completeContext) => subscribe({
         schema,
-        query,
-        {},
-        completeContext,
-        variables,
+        document: query,
+        rootValue: {},
+        contextValue: completeContext,
+        variableValues: variables,
         operationName,
-      ))
+      }))
       .then((iterator) => {
         this.ready();
 
