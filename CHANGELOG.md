@@ -2,6 +2,11 @@
 
 -
 
+## 4.0.1
+- Import from @swydo/scoped package
+- Use named arguments for graphql methods
+- Bump apollo and graphql versions
+
 ## 4.0.0
 - Upgrade to Apollo Client 3 (#392)
 - Avoid attribute errors when accessing `connection` (#368)
