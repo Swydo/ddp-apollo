@@ -2,6 +2,10 @@
 
 -
 
+## 4.0.2
+- Bump package versions
+- Replace old imports using apollo-link-ddp to @swydo/apollo-link-ddp
+
 ## 4.0.1
 - Import from @swydo/scoped package
 - Use named arguments for graphql methods

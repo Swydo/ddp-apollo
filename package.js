@@ -8,7 +8,7 @@ var packages = [
 
 Package.describe({
   name: 'swydo:ddp-apollo',
-  version: '4.0.1',
+  version: '4.0.2',
   summary: 'DDP link and server for Apollo',
   git: 'https://github.com/swydo/ddp-apollo',
   documentation: 'README.md',
