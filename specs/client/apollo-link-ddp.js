@@ -9,7 +9,7 @@ import {
   getDDPLink,
   DDPMethodLink,
   DDPSubscriptionLink,
-} from 'apollo-link-ddp';
+} from '@swydo/apollo-link-ddp';
 import { loginWithUserId } from './helpers/login';
 import { callPromise } from './helpers/callPromise';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';

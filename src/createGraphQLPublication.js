@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import {
   DEFAULT_PUBLICATION,
   GRAPHQL_SUBSCRIPTION_MESSAGE_TYPE,
-} from 'apollo-link-ddp';
+} from '@swydo/apollo-link-ddp';
 import { subscribe } from 'graphql';
 import forAwaitEach from './forAwaitEach';
 import { contextToFunction } from './contextToFunction';

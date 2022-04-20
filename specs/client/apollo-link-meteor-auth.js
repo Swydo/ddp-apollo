@@ -3,7 +3,7 @@
 import chai from 'chai';
 import gql from 'graphql-tag';
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
-import { DEFAULT_PATH, meteorAuthLink } from 'apollo-link-ddp';
+import { DEFAULT_PATH, meteorAuthLink } from '@swydo/apollo-link-ddp';
 
 describe('MeteorAuthLink', function () {
   beforeEach(function () {

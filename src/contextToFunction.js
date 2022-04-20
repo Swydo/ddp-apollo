@@ -1,4 +1,4 @@
-import { DEFAULT_CREATE_CONTEXT } from 'apollo-link-ddp';
+import { DEFAULT_CREATE_CONTEXT } from '@swydo/apollo-link-ddp';
 
 export function contextToFunction(context) {
   switch (typeof context) {

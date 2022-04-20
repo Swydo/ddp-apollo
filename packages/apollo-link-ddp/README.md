@@ -11,7 +11,7 @@ This packages gives you a `DDPLink` for your Apollo Client. Creating an Apollo C
 
 ```javascript
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { DDPLink } from 'apollo-link-ddp';
+import { DDPLink } from '@swydo/apollo-link-ddp';
 
 export const client = new ApolloClient ({
   link: new DDPLink(),

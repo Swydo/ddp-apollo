@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import {
   DEFAULT_METHOD,
-} from 'apollo-link-ddp';
+} from '@swydo/apollo-link-ddp';
 import { initSchema } from './initSchema';
 import { createExecutor } from './createExecutor';
 import { createGraphQLMethod } from './createGraphQLMethod';
