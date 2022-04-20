@@ -14,6 +14,7 @@ export function createGraphQLMethod({
 
   const createContext = contextToFunction(context);
 
+  // eslint-disable-next-line default-param-last
   return async function graphQlMethod({ query, variables, operationName } = {}, clientContext) {
     if (!query) {
       return {};

@@ -23,6 +23,7 @@ export function createGraphQLPublication({
 
   const createContext = contextToFunction(context);
 
+  // eslint-disable-next-line default-param-last
   Meteor.publish(publication, function publishGraphQL({
     query,
     variables,
