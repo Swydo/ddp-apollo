@@ -5,7 +5,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 import gql from 'graphql-tag';
 import { ApolloGateway, LocalGraphQLDataSource } from '@apollo/gateway';
 import { buildFederatedSchema } from '@apollo/federation';
-import { DEFAULT_METHOD } from 'apollo-link-ddp';
+import { DEFAULT_METHOD } from '@swydo/apollo-link-ddp';
 
 import { setup } from '../../src/setup';
 import { DDP_APOLLO_SCHEMA_REQUIRED } from '../../src/initSchema';

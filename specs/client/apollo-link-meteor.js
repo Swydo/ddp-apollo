@@ -3,7 +3,7 @@
 import chai from 'chai';
 import gql from 'graphql-tag';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { MeteorLink } from 'apollo-link-ddp';
+import { MeteorLink } from '@swydo/apollo-link-ddp';
 import { loginWithUserId } from './helpers/login';
 import { callPromise } from './helpers/callPromise';
 

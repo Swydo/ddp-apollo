@@ -4,7 +4,7 @@ import chai from 'chai';
 import gql from 'graphql-tag';
 import { Promise } from 'meteor/promise';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { getDDPLink } from 'apollo-link-ddp';
+import { getDDPLink } from '@swydo/apollo-link-ddp';
 import { FOO_CHANGED_TOPIC } from '../data/resolvers';
 
 describe('Using Asteroid', function () {

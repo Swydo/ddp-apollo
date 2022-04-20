@@ -1,7 +1,7 @@
 import { WebApp } from 'meteor/webapp';
 import {
   DEFAULT_PATH,
-} from 'apollo-link-ddp';
+} from '@swydo/apollo-link-ddp';
 import { initSchema } from './initSchema';
 import { createExecutor } from './createExecutor';
 import { createGraphQLPublication } from './createGraphQLPublication';

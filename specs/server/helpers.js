@@ -2,7 +2,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 import {
   DEFAULT_METHOD,
   DEFAULT_PUBLICATION,
-} from 'apollo-link-ddp';
+} from '@swydo/apollo-link-ddp';
 import { pubsub } from '../data/pubsub';
 import { setup, setupHttpEndpoint } from '../../src/setup';
 
