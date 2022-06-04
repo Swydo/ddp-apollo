@@ -1,4 +1,4 @@
-const { ApolloLink, Observable, split } = require('@apollo/client');
+const { ApolloLink, Observable, split } = require('@apollo/client/core');
 const isSubscription = require('../common/isSubscription');
 const {
   DEFAULT_METHOD,
